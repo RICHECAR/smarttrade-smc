@@ -1,0 +1,185 @@
+# IMPLÉMENTATION REAL ONLY — Guide Rapide Copier-Coller
+
+## 🚀 TROIS FICHIERS CRITIQUES À MODIFIER
+
+### FICHIER 1 : smc_futures/smc_config.py (REMPLACER COMPLÈTEMENT)
+
+cp smc_futures/smc_config_REAL_ONLY.py smc_futures/smc_config.py
+
+---
+
+### FICHIER 2 : smc_futures/engine/execution/order_manager.py
+
+AJOUTER cette méthode APRÈS execute_signal() (vers ligne 300) :
+
+```python
+    # ──────────────────────────────────────────────────────
+    #  Hook d'Exécution Publique (Pour Auto-Exec Orchestrateur)
+    # ──────────────────────────────────────────────────────
+
+    async def execute(
+        self,
+        symbol: str,
+        signal_dict: Dict,
+        signal_id: str,
+        executor,
+        active_trade: Optional[Dict] = None,
+        account_balance: float = 0.0,
+    ) -> Dict:
+        """
+        Méthode d'exécution unique appelée directement par l'orchestrateur
+        pour le hook d'auto-exécution.
+        
+        Retourne :
+            {
+                "success": bool,
+                "entry_order_id": str ou None,
+                "quantity": float,
+                "price_executed": float,
+                "timestamp": str,
+                "reason": str (si échec)
+            }
+        """
+        # 1. Pré-vol
+        ok, reason, details = self.pre_flight_checks(
+            symbol=symbol,
+            signal_dict=signal_dict,
+            signal_id=signal_id,
+            active_trade=active_trade,
+            account_balance=account_balance,
+        )
+        
+        if not ok:
+            logger.warning(f"[AUTO_EXEC] REJET PRÉ-VOL | {symbol} | raison={reason}")
+            return {
+                "success": False,
+                "reason": reason,
+                "details": details,
+            }
+        
+        # 2. Exécution
+        logger.info(f"[AUTO_EXEC] PRÉ-VOL OK | {symbol} | exécution en cours...")
+        
+        quantity = details.get("quantity", signal_dict.get("quantity", 0.001))
+        leverage = details.get("leverage", 3)
+        
+        result = await self.execute_signal(
+            executor=executor,
+            symbol=symbol,
+            signal_dict=signal_dict,
+            quantity=float(quantity),
+            leverage=int(leverage),
+        )
+        
+        return result
+```
+
+---
+
+### FICHIER 3 : smc_futures/orchestrator.py (SECTION AUTO-EXEC)
+
+REMPLACER la section "Execution / Signal Handoff" (lignes ~416-500) :
+
+CHERCHER :
+```python
+        # ── Execution / Signal Handoff ─────────────────────
+        # [REFACTOR] Use injected context OrderManager
+        order_mgr = self.ctx.order_manager
+        ...
+```
+
+REMPLACER PAR :
+```python
+        # ── Exécution / Transmission du Signal ──────────────
+        order_mgr = self.ctx.order_manager
+        
+        should_auto_execute = (
+            (SMC_CONFIG["AUTO_EXECUTE_ENABLED"] or SMC_CONFIG["SHADOW_MODE"])
+            and (self.live_trading or SMC_CONFIG["SHADOW_MODE"])
+        )
+        
+        if should_auto_execute:
+            logger.info(f"[AUTO_EXEC] HOOK DÉCLENCHÉ | {symbol} | signal_id={sig_id}")
+
+            exec_result = await order_mgr.execute(
+                symbol=symbol,
+                signal_dict=signal_dict,
+                signal_id=str(sig_id),
+                executor=self.executor,
+                active_trade=self.active_trade,
+                account_balance=self.account_balance,
+            )
+            
+            if exec_result.get("success"):
+                logger.info(f"[AUTO_EXEC] SUCCÈS | {symbol} | orderId={exec_result.get('entry_order_id')}")
+                # ... suite du traitement (voir IMPLEMENTATION_GUIDE)
+            else:
+                reason = exec_result.get("reason", "Erreur inconnue")
+                logger.warning(f"[AUTO_EXEC] ÉCHEC | {symbol} | raison={reason}")
+```
+
+---
+
+## FICHIERS OPTIONNELS (Déjà créés)
+
+✅ tests/test_real_only_fail_fast.py — FAIT
+✅ tests/test_bitget_v2_payloads.py — FAIT
+✅ GO_LIVE_CHECKLIST_REAL_ONLY.md — FAIT
+✅ IMPLEMENTATION_GUIDE_REAL_ONLY.md — FAIT
+✅ smc_futures/smc_config_REAL_ONLY.py — Template créé
+
+---
+
+## COMMANDES DE TEST
+
+```bash
+# 1. Vérifier le chargement de la config
+python -c "from smc_futures.smc_config import SMC_CONFIG; print('✅ CONFIG CHARGÉE'); print('AUTO_EXECUTE:', SMC_CONFIG['AUTO_EXECUTE_ENABLED'])"
+
+# 2. Vérifier la méthode execute()
+python -c "from smc_futures.engine.execution.order_manager import OrderManager; print('✅ execute() existe:', hasattr(OrderManager, 'execute'))"
+
+# 3. Vérification de compilation
+python -m py_compile smc_futures/orchestrator.py
+python -m py_compile smc_futures/engine/execution/order_manager.py
+
+# 4. Tests unitaires
+pytest tests/test_real_only_fail_fast.py -v
+pytest tests/test_bitget_v2_payloads.py -v
+pytest tests/test_auto_exec_hook.py -v
+
+# 5. Test de démarrage
+python run.py
+
+# 6. Vérification santé (dans un autre terminal)
+curl http://localhost:8000/health
+```
+
+---
+
+## ÉTAPES FINALES
+
+1. ✅ Copier smc_config_REAL_ONLY.py → smc_config.py
+2. ✅ Ajouter execute() à order_manager.py
+3. ✅ Remplacer le hook auto-exec dans orchestrator.py
+4. ⚠️  OPTIONNEL : Logging HTTP amélioré dans bitget_executor.py
+5. ✅ Lancer pytest
+6. ✅ Démarrer FastAPI
+7. ✅ Consulter GO_LIVE_CHECKLIST_REAL_ONLY.md
+
+---
+
+## SUPPORT RAPIDE
+
+❌ Module introuvable ?
+  → pip install -e .
+
+❌ Erreur de config au démarrage ?
+  → Vérifier safe-live.env : TRADING_MODE=live, AUTO_EXECUTE=true
+
+❌ Tests en échec ?
+  → Consulter IMPLEMENTATION_GUIDE_REAL_ONLY.md section E
+
+❌ Pas de signaux après le démarrage ?
+  → Surveiller les logs pour [SIGNAL] BTCUSDT...
+  → Nécessite 5-10 min pour accumuler les données

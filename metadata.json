@@ -1,0 +1,5 @@
+{
+  "name": "Bitget SMC Auto-Trader",
+  "description": "Professional trading dashboard utilizing Bitget API v2 and Smart Money Concepts (SMC) for automated market structure analysis, order block detection, and trade signaling.",
+  "requestFramePermissions": []
+}

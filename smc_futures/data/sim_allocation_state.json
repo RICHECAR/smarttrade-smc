@@ -1,0 +1,10 @@
+{
+    "BTCUSDT": {
+        "current_capital": 500.0,
+        "last_action": "hold",
+        "reason": "BUILDING_STREAK: 4/10min",
+        "regime": "NORMAL",
+        "timestamp": 1772367057.8420994,
+        "status": "GREEN"
+    }
+}

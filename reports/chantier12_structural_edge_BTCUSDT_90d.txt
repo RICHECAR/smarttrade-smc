@@ -1,0 +1,521 @@
+======================================================================
+  CHANTIER 12 — STRUCTURAL EDGE VALIDATION
+  Symbol: BTCUSDT | TF: 5m | Days: 90
+  Date: 2026-03-27T01:14:24.900935+00:00
+======================================================================
+
+[1/5] FETCHING REAL DATA...
+  Candles: 8928
+  Source:  bitget_api
+  Coverage:    100.0%
+  Gaps:        0
+  OHLC Issues: 0
+  Anomalies:   0
+  Valid:       YES
+  Data period: 1771895700000 - 1774573800000
+  Price range: $62465.10 - $75974.90
+
+[2/5] RUNNING INDIVIDUAL ALPHAS...
+
+  Running: TREND FOLLOWING...
+  Completed in 496.5s
+══════════════════════════════════════════════════════════════════════
+  REALISTIC BACKTEST REPORT — BTCUSDT
+══════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════
+  ✗ EDGE INVALIDATED  (Confidence: HIGH)
+════════════════════════════════════════════════════════════
+  Score: 15/100
+    Profitability : 5/25
+    Risk          : 0/25
+    Robustness    : 0/25
+    Consistency   : 10/25
+
+  ── Métriques clés ──
+    Trades        : 32
+    Win Rate      : 25.0%
+    Profit Factor : 0.16
+    Expectancy    : $-88.91/trade
+    Max Drawdown  : 29.1%
+    Sharpe Ratio  : -19.62
+    Total PnL     : $-2845.15
+    Total Fees    : $197.02
+    Total Funding : $17.18
+    Slippage Cost : $2708.48
+
+  ── REJECTIONS ──
+    ✗ NEGATIVE EXPECTANCY: $-88.91 per trade
+    ✗ LOW PROFIT FACTOR: 0.16 < 1.2
+    ✗ EXCESSIVE DRAWDOWN: 29.1% > 25.0%
+    ✗ WIN RATE TOO LOW: 25.0% < 30.0%
+    ✗ MC ROBUSTNESS FAILED: 0.14 < 0.6
+    ✗ MC 5th PERCENTILE LOSS: $-2845
+    ✗ WF INCONSISTENT: 0% OOS folds profitable < 50%
+    ✗ WF OOS UNPROFITABLE: PF = 0.00
+
+  ── Warnings ──
+    ⚠ LOW SHARPE: -19.62
+    ⚠ Parameter sensitive: unprofitable in 100% of variations
+    ⚠ 95th DD = 30.4% (risk of >30% drawdown)
+    ⚠ 5th pctile PnL = $-2845 (can be negative)
+    ⚠ Unprofitable in 100% of param variations
+    ⚠ 5th pctile PF = 0.16 (below breakeven)
+    ⚠ Unprofitable in 100% of skip-N trials (outlier dependent)
+════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────
+  WALK-FORWARD VALIDATION
+──────────────────────────────────────────────────────────────────────
+  Total folds       : 3
+  Valid folds       : 0
+  Overfit folds     : 0
+  OOS Trades        : 0
+  OOS Win Rate      : 0.0%
+  OOS Profit Factor : 0.00
+  OOS Consistency   : 0%
+  Overfit Score     : 0.00
+  IS Win Rate       : 0.0%
+  IS Profit Factor  : 0.00
+  Robust?           : NO
+
+──────────────────────────────────────────────────────────────────────
+  MONTE CARLO ANALYSIS
+──────────────────────────────────────────────────────────────────────
+  Permutation (order sensitivity):
+    95th pctile DD  : 30.4%
+    5th pctile PnL  : $-2845
+    Median PF       : 0.16
+  Parameter sensitivity:
+    5th pctile PnL  : $-4075
+    Unprofitable    : 100%
+  Skip-N stability:
+    5th pctile PnL  : $-2936
+    Unprofitable    : 100%
+  Robustness Score  : 0.14
+  Robust?           : NO
+
+  Pipeline duration: 496.5s
+══════════════════════════════════════════════════════════════════════
+===================================================================
+  TREND FOLLOWING
+===================================================================
+  Trades:           32
+  Win Rate:         25.0%
+  Profit Factor:    0.16
+  Expectancy:       $-88.91/trade
+  Net PnL:          $-2845.15
+  Max Drawdown:     29.1%
+  Sharpe Ratio:     -19.62
+  Edge Ratio:       0.51
+  Score:            15/100
+  Verdict:          EDGE INVALIDATED
+
+  Direction:
+    Long:  13 trades  WR: 38.5%
+    Short: 19 trades  WR: 15.8%
+
+  Costs:
+    Fees:     $197.02
+    Slippage: $2708.48
+    Avg Hold: 107 bars (535 min)
+
+  Validation:
+    WF Robust: NO
+    MC Robust: NO
+
+  Running: VOLATILITY EXPANSION...
+  Completed in 932.1s
+══════════════════════════════════════════════════════════════════════
+  REALISTIC BACKTEST REPORT — BTCUSDT
+══════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════
+  ✗ EDGE INVALIDATED  (Confidence: HIGH)
+════════════════════════════════════════════════════════════
+  Score: 25/100
+    Profitability : 0/25
+    Risk          : 15/25
+    Robustness    : 0/25
+    Consistency   : 10/25
+
+  ── Métriques clés ──
+    Trades        : 19
+    Win Rate      : 21.1%
+    Profit Factor : 0.07
+    Expectancy    : $-111.88/trade
+    Max Drawdown  : 22.2%
+    Sharpe Ratio  : -24.55
+    Total PnL     : $-2125.73
+    Total Fees    : $123.96
+    Total Funding : $12.56
+    Slippage Cost : $1458.80
+
+  ── REJECTIONS ──
+    ✗ INSUFFICIENT SAMPLE: 19 trades < 30 minimum
+    ✗ NEGATIVE EXPECTANCY: $-111.88 per trade
+    ✗ LOW PROFIT FACTOR: 0.07 < 1.2
+    ✗ WIN RATE TOO LOW: 21.1% < 30.0%
+    ✗ MC ROBUSTNESS FAILED: 0.15 < 0.6
+    ✗ MC 5th PERCENTILE LOSS: $-2126
+    ✗ WF INCONSISTENT: 0% OOS folds profitable < 50%
+    ✗ WF OOS UNPROFITABLE: PF = 0.00
+
+  ── Warnings ──
+    ⚠ LOW SHARPE: -24.55
+    ⚠ Parameter sensitive: unprofitable in 100% of variations
+    ⚠ 5th pctile PnL = $-2126 (can be negative)
+    ⚠ Unprofitable in 100% of param variations
+    ⚠ 5th pctile PF = 0.07 (below breakeven)
+    ⚠ Unprofitable in 100% of skip-N trials (outlier dependent)
+════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────
+  WALK-FORWARD VALIDATION
+──────────────────────────────────────────────────────────────────────
+  Total folds       : 3
+  Valid folds       : 0
+  Overfit folds     : 0
+  OOS Trades        : 0
+  OOS Win Rate      : 0.0%
+  OOS Profit Factor : 0.00
+  OOS Consistency   : 0%
+  Overfit Score     : 0.00
+  IS Win Rate       : 0.0%
+  IS Profit Factor  : 0.00
+  Robust?           : NO
+
+──────────────────────────────────────────────────────────────────────
+  MONTE CARLO ANALYSIS
+──────────────────────────────────────────────────────────────────────
+  Permutation (order sensitivity):
+    95th pctile DD  : 22.2%
+    5th pctile PnL  : $-2126
+    Median PF       : 0.07
+  Parameter sensitivity:
+    5th pctile PnL  : $-2782
+    Unprofitable    : 100%
+  Skip-N stability:
+    5th pctile PnL  : $-2176
+    Unprofitable    : 100%
+  Robustness Score  : 0.15
+  Robust?           : NO
+
+  Pipeline duration: 932.1s
+══════════════════════════════════════════════════════════════════════
+===================================================================
+  VOLATILITY EXPANSION
+===================================================================
+  Trades:           19
+  Win Rate:         21.1%
+  Profit Factor:    0.07
+  Expectancy:       $-111.88/trade
+  Net PnL:          $-2125.73
+  Max Drawdown:     22.2%
+  Sharpe Ratio:     -24.55
+  Edge Ratio:       0.53
+  Score:            25/100
+  Verdict:          EDGE INVALIDATED
+
+  Direction:
+    Long:  5 trades  WR: 40.0%
+    Short: 14 trades  WR: 14.3%
+
+  Costs:
+    Fees:     $123.96
+    Slippage: $1458.80
+    Avg Hold: 127 bars (637 min)
+
+  Validation:
+    WF Robust: NO
+    MC Robust: NO
+
+  Running: EXTREME EVENTS...
+  Completed in 316.2s
+══════════════════════════════════════════════════════════════════════
+  REALISTIC BACKTEST REPORT — BTCUSDT
+══════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════
+  ✗ EDGE INVALIDATED  (Confidence: HIGH)
+════════════════════════════════════════════════════════════
+  Score: 15/100
+    Profitability : 5/25
+    Risk          : 0/25
+    Robustness    : 0/25
+    Consistency   : 10/25
+
+  ── Métriques clés ──
+    Trades        : 65
+    Win Rate      : 26.2%
+    Profit Factor : 0.22
+    Expectancy    : $-62.58/trade
+    Max Drawdown  : 40.6%
+    Sharpe Ratio  : -24.26
+    Total PnL     : $-4067.83
+    Total Fees    : $339.83
+    Total Funding : $14.59
+    Slippage Cost : $3898.57
+
+  ── REJECTIONS ──
+    ✗ NEGATIVE EXPECTANCY: $-62.58 per trade
+    ✗ LOW PROFIT FACTOR: 0.22 < 1.2
+    ✗ EXCESSIVE DRAWDOWN: 40.6% > 25.0%
+    ✗ WIN RATE TOO LOW: 26.2% < 30.0%
+    ✗ MC ROBUSTNESS FAILED: 0.00 < 0.6
+    ✗ MC 5th PERCENTILE LOSS: $-4068
+    ✗ WF INCONSISTENT: 0% OOS folds profitable < 50%
+    ✗ WF OOS UNPROFITABLE: PF = 0.00
+
+  ── Warnings ──
+    ⚠ LOW SHARPE: -24.26
+    ⚠ Parameter sensitive: unprofitable in 100% of variations
+    ⚠ 95th DD = 43.0% (risk of >30% drawdown)
+    ⚠ 5th pctile PnL = $-4068 (can be negative)
+    ⚠ Unprofitable in 100% of param variations
+    ⚠ 5th pctile PF = 0.22 (below breakeven)
+    ⚠ Unprofitable in 100% of skip-N trials (outlier dependent)
+════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────
+  WALK-FORWARD VALIDATION
+──────────────────────────────────────────────────────────────────────
+  Total folds       : 3
+  Valid folds       : 0
+  Overfit folds     : 0
+  OOS Trades        : 0
+  OOS Win Rate      : 0.0%
+  OOS Profit Factor : 0.00
+  OOS Consistency   : 0%
+  Overfit Score     : 0.00
+  IS Win Rate       : 0.0%
+  IS Profit Factor  : 0.00
+  Robust?           : NO
+
+──────────────────────────────────────────────────────────────────────
+  MONTE CARLO ANALYSIS
+──────────────────────────────────────────────────────────────────────
+  Permutation (order sensitivity):
+    95th pctile DD  : 43.0%
+    5th pctile PnL  : $-4068
+    Median PF       : 0.22
+  Parameter sensitivity:
+    5th pctile PnL  : $-5727
+    Unprofitable    : 100%
+  Skip-N stability:
+    5th pctile PnL  : $-4095
+    Unprofitable    : 100%
+  Robustness Score  : 0.00
+  Robust?           : NO
+
+  Pipeline duration: 316.2s
+══════════════════════════════════════════════════════════════════════
+===================================================================
+  EXTREME EVENTS
+===================================================================
+  Trades:           65
+  Win Rate:         26.2%
+  Profit Factor:    0.22
+  Expectancy:       $-62.58/trade
+  Net PnL:          $-4067.83
+  Max Drawdown:     40.6%
+  Sharpe Ratio:     -24.26
+  Edge Ratio:       0.47
+  Score:            15/100
+  Verdict:          EDGE INVALIDATED
+
+  Direction:
+    Long:  32 trades  WR: 46.9%
+    Short: 33 trades  WR: 6.1%
+
+  Costs:
+    Fees:     $339.83
+    Slippage: $3898.57
+    Avg Hold: 52 bars (261 min)
+
+  Validation:
+    WF Robust: NO
+    MC Robust: NO
+
+[3/5] RUNNING COMBINED ALPHA...
+  Completed in 199.1s
+══════════════════════════════════════════════════════════════════════
+  REALISTIC BACKTEST REPORT — BTCUSDT
+══════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════
+  ✗ EDGE INVALIDATED  (Confidence: HIGH)
+════════════════════════════════════════════════════════════
+  Score: 15/100
+    Profitability : 5/25
+    Risk          : 0/25
+    Robustness    : 0/25
+    Consistency   : 10/25
+
+  ── Métriques clés ──
+    Trades        : 54
+    Win Rate      : 29.6%
+    Profit Factor : 0.29
+    Expectancy    : $-65.35/trade
+    Max Drawdown  : 35.1%
+    Sharpe Ratio  : -13.90
+    Total PnL     : $-3529.12
+    Total Fees    : $311.82
+    Total Funding : $26.20
+    Slippage Cost : $3696.22
+
+  ── REJECTIONS ──
+    ✗ NEGATIVE EXPECTANCY: $-65.35 per trade
+    ✗ LOW PROFIT FACTOR: 0.29 < 1.2
+    ✗ EXCESSIVE DRAWDOWN: 35.1% > 25.0%
+    ✗ WIN RATE TOO LOW: 29.6% < 30.0%
+    ✗ MC ROBUSTNESS FAILED: 0.00 < 0.6
+    ✗ MC 5th PERCENTILE LOSS: $-3529
+    ✗ WF INCONSISTENT: 0% OOS folds profitable < 50%
+    ✗ WF OOS UNPROFITABLE: PF = 0.00
+
+  ── Warnings ──
+    ⚠ LOW SHARPE: -13.90
+    ⚠ Parameter sensitive: unprofitable in 100% of variations
+    ⚠ 95th DD = 38.7% (risk of >30% drawdown)
+    ⚠ 5th pctile PnL = $-3529 (can be negative)
+    ⚠ Unprofitable in 100% of param variations
+    ⚠ 5th pctile PF = 0.29 (below breakeven)
+    ⚠ Unprofitable in 100% of skip-N trials (outlier dependent)
+════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────
+  WALK-FORWARD VALIDATION
+──────────────────────────────────────────────────────────────────────
+  Total folds       : 3
+  Valid folds       : 0
+  Overfit folds     : 0
+  OOS Trades        : 0
+  OOS Win Rate      : 0.0%
+  OOS Profit Factor : 0.00
+  OOS Consistency   : 0%
+  Overfit Score     : 0.00
+  IS Win Rate       : 0.0%
+  IS Profit Factor  : 0.00
+  Robust?           : NO
+
+──────────────────────────────────────────────────────────────────────
+  MONTE CARLO ANALYSIS
+──────────────────────────────────────────────────────────────────────
+  Permutation (order sensitivity):
+    95th pctile DD  : 38.7%
+    5th pctile PnL  : $-3529
+    Median PF       : 0.29
+  Parameter sensitivity:
+    5th pctile PnL  : $-5203
+    Unprofitable    : 100%
+  Skip-N stability:
+    5th pctile PnL  : $-3711
+    Unprofitable    : 100%
+  Robustness Score  : 0.00
+  Robust?           : NO
+
+  Pipeline duration: 199.1s
+══════════════════════════════════════════════════════════════════════
+===================================================================
+  COMBINED (Best of 3)
+===================================================================
+  Trades:           54
+  Win Rate:         29.6%
+  Profit Factor:    0.29
+  Expectancy:       $-65.35/trade
+  Net PnL:          $-3529.12
+  Max Drawdown:     35.1%
+  Sharpe Ratio:     -13.90
+  Edge Ratio:       0.61
+  Score:            15/100
+  Verdict:          EDGE INVALIDATED
+
+  Direction:
+    Long:  26 trades  WR: 50.0%
+    Short: 28 trades  WR: 10.7%
+
+  Costs:
+    Fees:     $311.82
+    Slippage: $3696.22
+    Avg Hold: 107 bars (534 min)
+
+  Validation:
+    WF Robust: NO
+    MC Robust: NO
+
+[4/5] COMPARISON TABLE...
+==========================================================================================
+  COMPARISON TABLE — ALL ALPHAS
+==========================================================================================
+  Alpha                      Trades     WR%      PF     Exp$       PnL$     DD%   Edge  Score Verdict        
+------------------------------------------------------------------------------------------
+  [C10] Alpha A (SMC Rev)        12   41.7%   0.67   -2.91    -34.92    6.2%  0.38    10 INVALIDATED    
+  [C10] Alpha B (Mom BK)         13   69.2%   1.08    4.73     61.50    7.7%  0.44    45 INVALIDATED    
+  [C11] Alpha B REAL             78   16.7%   0.07  -86.12  -6717.38   67.2%  0.25    15 EDGE DEAD      
+  TREND FOLLOWING                32   25.0%   0.16  -88.91  -2845.15   29.1%  0.51    15 EDGE INVALIDATED
+  VOLATILITY EXPANSION           19   21.1%   0.07 -111.88  -2125.73   22.2%  0.53    25 EDGE INVALIDATED
+  EXTREME EVENTS                 65   26.2%   0.22  -62.58  -4067.83   40.6%  0.47    15 EDGE INVALIDATED
+  COMBINED (Best of 3)           54   29.6%   0.29  -65.35  -3529.12   35.1%  0.61    15 EDGE INVALIDATED
+------------------------------------------------------------------------------------------
+
+[5/5] FINAL VERDICT...
+======================================================================
+  VERDICT FINAL — CHANTIER 12
+  STRUCTURAL EDGE ALPHAS sur DONNEES REELLES
+======================================================================
+
+  TREND FOLLOWING:
+    [FAIL] Expectancy > 0       = $-88.91
+    [FAIL] PF >= 1.3            = 0.16
+    [FAIL] Edge Ratio > 1       = 0.51
+    [FAIL] Max DD <= 25%        = 29.1%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 32
+    Score: 1/7 criteria passed
+
+  VOLATILITY EXPANSION:
+    [FAIL] Expectancy > 0       = $-111.88
+    [FAIL] PF >= 1.3            = 0.07
+    [FAIL] Edge Ratio > 1       = 0.53
+    [PASS] Max DD <= 25%        = 22.2%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 19
+    Score: 2/7 criteria passed
+
+  EXTREME EVENTS:
+    [FAIL] Expectancy > 0       = $-62.58
+    [FAIL] PF >= 1.3            = 0.22
+    [FAIL] Edge Ratio > 1       = 0.47
+    [FAIL] Max DD <= 25%        = 40.6%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 65
+    Score: 1/7 criteria passed
+
+  COMBINED (Best of 3):
+    [FAIL] Expectancy > 0       = $-65.35
+    [FAIL] PF >= 1.3            = 0.29
+    [FAIL] Edge Ratio > 1       = 0.61
+    [FAIL] Max DD <= 25%        = 35.1%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 54
+    Score: 1/7 criteria passed
+
+  =======================================================
+  |                                                     |
+  |                       NO EDGE                       |
+  |                                                     |
+  =======================================================
+  Aucune alpha n'a d'edge sur donnees reelles.
+
+  DIAGNOSTIC:
+  - Les couts de microstructure crypto (~120 bps) restent dominants
+  - Meme les alphas basse-frequence / gros target ne suffisent pas
+  - Le marche est hyper-efficient sur les timeframes testes
+  - PROCHAINE ETAPE: explorer cross-asset, funding arbitrage, ou plus long terme
+
+  Total execution time: 1977.4s

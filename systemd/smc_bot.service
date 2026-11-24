@@ -1,0 +1,30 @@
+[Unit]
+Description=SMC Auto Trader Bot (Production)
+After=network.target
+
+[Service]
+Type=simple
+User=bitgetbot
+Group=bitgetbot
+WorkingDirectory=/opt/bitget-smc-auto-trader
+
+# ------------------------------------------------------------------
+# OPSEC REQUIREMENT (Phase 0.75):
+# We DO NOT load an EnvironmentFile containing plaintext secrets here.
+# Instead, we execute a secure wrapper script that fetches the secrets
+# from AWS Secrets Manager (or Vault) into memory and runs the Python process.
+# ------------------------------------------------------------------
+ExecStart=/opt/bitget-smc-auto-trader/scripts/start_prod_secure.sh
+
+Restart=always
+RestartSec=10
+LimitNOFILE=65536
+
+# Hardening
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

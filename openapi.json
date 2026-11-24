@@ -1,0 +1,1469 @@
+﻿{
+    "openapi":  "3.1.0",
+    "info":  {
+                 "title":  "SmartTrade AI Backend",
+                 "version":  "2.0"
+             },
+    "paths":  {
+                  "/api/v1/balances":  {
+                                           "get":  {
+                                                       "summary":  "Get Futures Balance",
+                                                       "description":  "Get futures account balance (aliased as /balances)",
+                                                       "operationId":  "get_futures_balance_api_v1_balances_get",
+                                                       "parameters":  [
+                                                                          {
+                                                                              "name":  "marginCoin",
+                                                                              "in":  "query",
+                                                                              "required":  false,
+                                                                              "schema":  {
+                                                                                             "type":  "string",
+                                                                                             "default":  "USDT",
+                                                                                             "title":  "Margincoin"
+                                                                                         }
+                                                                          },
+                                                                          {
+                                                                              "name":  "X-BITGET-KEY",
+                                                                              "in":  "header",
+                                                                              "required":  false,
+                                                                              "schema":  {
+                                                                                             "anyOf":  [
+                                                                                                           {
+                                                                                                               "type":  "string"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "null"
+                                                                                                           }
+                                                                                                       ],
+                                                                                             "title":  "X-Bitget-Key"
+                                                                                         }
+                                                                          },
+                                                                          {
+                                                                              "name":  "X-BITGET-SECRET",
+                                                                              "in":  "header",
+                                                                              "required":  false,
+                                                                              "schema":  {
+                                                                                             "anyOf":  [
+                                                                                                           {
+                                                                                                               "type":  "string"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "null"
+                                                                                                           }
+                                                                                                       ],
+                                                                                             "title":  "X-Bitget-Secret"
+                                                                                         }
+                                                                          },
+                                                                          {
+                                                                              "name":  "X-BITGET-PASSPHRASE",
+                                                                              "in":  "header",
+                                                                              "required":  false,
+                                                                              "schema":  {
+                                                                                             "anyOf":  [
+                                                                                                           {
+                                                                                                               "type":  "string"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "null"
+                                                                                                           }
+                                                                                                       ],
+                                                                                             "title":  "X-Bitget-Passphrase"
+                                                                                         }
+                                                                          }
+                                                                      ],
+                                                       "responses":  {
+                                                                         "200":  {
+                                                                                     "description":  "Successful Response",
+                                                                                     "content":  {
+                                                                                                     "application/json":  {
+                                                                                                                              "schema":  {
+
+                                                                                                                                         }
+                                                                                                                          }
+                                                                                                 }
+                                                                                 },
+                                                                         "422":  {
+                                                                                     "description":  "Validation Error",
+                                                                                     "content":  {
+                                                                                                     "application/json":  {
+                                                                                                                              "schema":  {
+                                                                                                                                             "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                         }
+                                                                                                                          }
+                                                                                                 }
+                                                                                 }
+                                                                     }
+                                                   }
+                                       },
+                  "/api/v1/account/futures":  {
+                                                  "get":  {
+                                                              "summary":  "Get Futures Balance",
+                                                              "description":  "Get futures account balance (aliased as /balances)",
+                                                              "operationId":  "get_futures_balance_api_v1_account_futures_get",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "name":  "marginCoin",
+                                                                                     "in":  "query",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string",
+                                                                                                    "default":  "USDT",
+                                                                                                    "title":  "Margincoin"
+                                                                                                }
+                                                                                 },
+                                                                                 {
+                                                                                     "name":  "X-BITGET-KEY",
+                                                                                     "in":  "header",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "X-Bitget-Key"
+                                                                                                }
+                                                                                 },
+                                                                                 {
+                                                                                     "name":  "X-BITGET-SECRET",
+                                                                                     "in":  "header",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "X-Bitget-Secret"
+                                                                                                }
+                                                                                 },
+                                                                                 {
+                                                                                     "name":  "X-BITGET-PASSPHRASE",
+                                                                                     "in":  "header",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "X-Bitget-Passphrase"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "description":  "Successful Response",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        },
+                                                                                "422":  {
+                                                                                            "description":  "Validation Error",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+                                                                                                                                                    "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        }
+                                                                            }
+                                                          }
+                                              },
+                  "/api/v1/positions":  {
+                                            "get":  {
+                                                        "summary":  "Get Positions",
+                                                        "description":  "Get open positions",
+                                                        "operationId":  "get_positions_api_v1_positions_get",
+                                                        "parameters":  [
+                                                                           {
+                                                                               "name":  "symbol",
+                                                                               "in":  "query",
+                                                                               "required":  false,
+                                                                               "schema":  {
+                                                                                              "anyOf":  [
+                                                                                                            {
+                                                                                                                "type":  "string"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type":  "null"
+                                                                                                            }
+                                                                                                        ],
+                                                                                              "title":  "Symbol"
+                                                                                          }
+                                                                           },
+                                                                           {
+                                                                               "name":  "X-BITGET-KEY",
+                                                                               "in":  "header",
+                                                                               "required":  false,
+                                                                               "schema":  {
+                                                                                              "anyOf":  [
+                                                                                                            {
+                                                                                                                "type":  "string"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type":  "null"
+                                                                                                            }
+                                                                                                        ],
+                                                                                              "title":  "X-Bitget-Key"
+                                                                                          }
+                                                                           },
+                                                                           {
+                                                                               "name":  "X-BITGET-SECRET",
+                                                                               "in":  "header",
+                                                                               "required":  false,
+                                                                               "schema":  {
+                                                                                              "anyOf":  [
+                                                                                                            {
+                                                                                                                "type":  "string"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type":  "null"
+                                                                                                            }
+                                                                                                        ],
+                                                                                              "title":  "X-Bitget-Secret"
+                                                                                          }
+                                                                           },
+                                                                           {
+                                                                               "name":  "X-BITGET-PASSPHRASE",
+                                                                               "in":  "header",
+                                                                               "required":  false,
+                                                                               "schema":  {
+                                                                                              "anyOf":  [
+                                                                                                            {
+                                                                                                                "type":  "string"
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type":  "null"
+                                                                                                            }
+                                                                                                        ],
+                                                                                              "title":  "X-Bitget-Passphrase"
+                                                                                          }
+                                                                           }
+                                                                       ],
+                                                        "responses":  {
+                                                                          "200":  {
+                                                                                      "description":  "Successful Response",
+                                                                                      "content":  {
+                                                                                                      "application/json":  {
+                                                                                                                               "schema":  {
+
+                                                                                                                                          }
+                                                                                                                           }
+                                                                                                  }
+                                                                                  },
+                                                                          "422":  {
+                                                                                      "description":  "Validation Error",
+                                                                                      "content":  {
+                                                                                                      "application/json":  {
+                                                                                                                               "schema":  {
+                                                                                                                                              "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                          }
+                                                                                                                           }
+                                                                                                  }
+                                                                                  }
+                                                                      }
+                                                    }
+                                        },
+                  "/api/v1/trades/history":  {
+                                                 "get":  {
+                                                             "summary":  "Get Trade History",
+                                                             "description":  "Get past fills",
+                                                             "operationId":  "get_trade_history_api_v1_trades_history_get",
+                                                             "parameters":  [
+                                                                                {
+                                                                                    "name":  "symbol",
+                                                                                    "in":  "query",
+                                                                                    "required":  true,
+                                                                                    "schema":  {
+                                                                                                   "type":  "string",
+                                                                                                   "title":  "Symbol"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "limit",
+                                                                                    "in":  "query",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "type":  "integer",
+                                                                                                   "default":  50,
+                                                                                                   "title":  "Limit"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "X-BITGET-KEY",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Key"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "X-BITGET-SECRET",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Secret"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "X-BITGET-PASSPHRASE",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Passphrase"
+                                                                                               }
+                                                                                }
+                                                                            ],
+                                                             "responses":  {
+                                                                               "200":  {
+                                                                                           "description":  "Successful Response",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       },
+                                                                               "422":  {
+                                                                                           "description":  "Validation Error",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+                                                                                                                                                   "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       }
+                                                                           }
+                                                         }
+                                             },
+                  "/api/v1/market/contracts":  {
+                                                   "get":  {
+                                                               "summary":  "Get Market Contracts",
+                                                               "description":  "Get symbol rules/contracts information",
+                                                               "operationId":  "get_market_contracts_api_v1_market_contracts_get",
+                                                               "parameters":  [
+                                                                                  {
+                                                                                      "name":  "symbol",
+                                                                                      "in":  "query",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "Symbol"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-KEY",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Key"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-SECRET",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Secret"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-PASSPHRASE",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Passphrase"
+                                                                                                 }
+                                                                                  }
+                                                                              ],
+                                                               "responses":  {
+                                                                                 "200":  {
+                                                                                             "description":  "Successful Response",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         },
+                                                                                 "422":  {
+                                                                                             "description":  "Validation Error",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+                                                                                                                                                     "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         }
+                                                                             }
+                                                           }
+                                               },
+                  "/api/v1/account/leverage":  {
+                                                   "get":  {
+                                                               "summary":  "Get Account Leverage",
+                                                               "description":  "Get leverage for a specific symbol from current positions",
+                                                               "operationId":  "get_account_leverage_api_v1_account_leverage_get",
+                                                               "parameters":  [
+                                                                                  {
+                                                                                      "name":  "symbol",
+                                                                                      "in":  "query",
+                                                                                      "required":  true,
+                                                                                      "schema":  {
+                                                                                                     "type":  "string",
+                                                                                                     "title":  "Symbol"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-KEY",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Key"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-SECRET",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Secret"
+                                                                                                 }
+                                                                                  },
+                                                                                  {
+                                                                                      "name":  "X-BITGET-PASSPHRASE",
+                                                                                      "in":  "header",
+                                                                                      "required":  false,
+                                                                                      "schema":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "X-Bitget-Passphrase"
+                                                                                                 }
+                                                                                  }
+                                                                              ],
+                                                               "responses":  {
+                                                                                 "200":  {
+                                                                                             "description":  "Successful Response",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         },
+                                                                                 "422":  {
+                                                                                             "description":  "Validation Error",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+                                                                                                                                                     "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         }
+                                                                             }
+                                                           }
+                                               },
+                  "/api/smc/init":  {
+                                        "post":  {
+                                                     "summary":  "Initialize Strategy",
+                                                     "operationId":  "initialize_strategy_api_smc_init_post",
+                                                     "requestBody":  {
+                                                                         "content":  {
+                                                                                         "application/json":  {
+                                                                                                                  "schema":  {
+                                                                                                                                 "$ref":  "#/components/schemas/StrategyConfig"
+                                                                                                                             }
+                                                                                                              }
+                                                                                     },
+                                                                         "required":  true
+                                                                     },
+                                                     "responses":  {
+                                                                       "200":  {
+                                                                                   "description":  "Successful Response",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               },
+                                                                       "422":  {
+                                                                                   "description":  "Validation Error",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+                                                                                                                                           "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               }
+                                                                   }
+                                                 }
+                                    },
+                  "/api/smc/process-candle":  {
+                                                  "post":  {
+                                                               "summary":  "Process Candle",
+                                                               "operationId":  "process_candle_api_smc_process_candle_post",
+                                                               "requestBody":  {
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+                                                                                                                                           "$ref":  "#/components/schemas/CandleInput"
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               },
+                                                                                   "required":  true
+                                                                               },
+                                                               "responses":  {
+                                                                                 "200":  {
+                                                                                             "description":  "Successful Response",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         },
+                                                                                 "422":  {
+                                                                                             "description":  "Validation Error",
+                                                                                             "content":  {
+                                                                                                             "application/json":  {
+                                                                                                                                      "schema":  {
+                                                                                                                                                     "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                         }
+                                                                                         }
+                                                                             }
+                                                           }
+                                              },
+                  "/api/smc/run-envelope":  {
+                                                "post":  {
+                                                             "summary":  "Run Envelope Cycle",
+                                                             "description":  "Run a single envelope strategy cycle:\n1. Fetch OHLCV data\n2. Calculate envelope levels  \n3. Cancel old orders\n4. Place grid of limit orders",
+                                                             "operationId":  "run_envelope_cycle_api_smc_run_envelope_post",
+                                                             "parameters":  [
+                                                                                {
+                                                                                    "name":  "X-BITGET-KEY",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Key"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "X-BITGET-SECRET",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Secret"
+                                                                                               }
+                                                                                },
+                                                                                {
+                                                                                    "name":  "X-BITGET-PASSPHRASE",
+                                                                                    "in":  "header",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "X-Bitget-Passphrase"
+                                                                                               }
+                                                                                }
+                                                                            ],
+                                                             "requestBody":  {
+                                                                                 "required":  true,
+                                                                                 "content":  {
+                                                                                                 "application/json":  {
+                                                                                                                          "schema":  {
+                                                                                                                                         "$ref":  "#/components/schemas/EnvelopeRunRequest"
+                                                                                                                                     }
+                                                                                                                      }
+                                                                                             }
+                                                                             },
+                                                             "responses":  {
+                                                                               "200":  {
+                                                                                           "description":  "Successful Response",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       },
+                                                                               "422":  {
+                                                                                           "description":  "Validation Error",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+                                                                                                                                                   "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       }
+                                                                           }
+                                                         }
+                                            },
+                  "/api/smc/state":  {
+                                         "get":  {
+                                                     "summary":  "Get State",
+                                                     "operationId":  "get_state_api_smc_state_get",
+                                                     "parameters":  [
+                                                                        {
+                                                                            "name":  "symbol",
+                                                                            "in":  "query",
+                                                                            "required":  true,
+                                                                            "schema":  {
+                                                                                           "type":  "string",
+                                                                                           "title":  "Symbol"
+                                                                                       }
+                                                                        }
+                                                                    ],
+                                                     "responses":  {
+                                                                       "200":  {
+                                                                                   "description":  "Successful Response",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               },
+                                                                       "422":  {
+                                                                                   "description":  "Validation Error",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+                                                                                                                                           "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               }
+                                                                   }
+                                                 }
+                                     },
+                  "/api/v1/market/ticker":  {
+                                                "get":  {
+                                                            "summary":  "Get Ticker",
+                                                            "description":  "Proxy to Bitget Ticker (V2 Mix)\nAvoids CORS and serves real-time price info.",
+                                                            "operationId":  "get_ticker_api_v1_market_ticker_get",
+                                                            "parameters":  [
+                                                                               {
+                                                                                   "name":  "symbol",
+                                                                                   "in":  "query",
+                                                                                   "required":  true,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "title":  "Symbol"
+                                                                                              }
+                                                                               },
+                                                                               {
+                                                                                   "name":  "productType",
+                                                                                   "in":  "query",
+                                                                                   "required":  false,
+                                                                                   "schema":  {
+                                                                                                  "type":  "string",
+                                                                                                  "default":  "USDT-FUTURES",
+                                                                                                  "title":  "Producttype"
+                                                                                              }
+                                                                               }
+                                                                           ],
+                                                            "responses":  {
+                                                                              "200":  {
+                                                                                          "description":  "Successful Response",
+                                                                                          "content":  {
+                                                                                                          "application/json":  {
+                                                                                                                                   "schema":  {
+
+                                                                                                                                              }
+                                                                                                                               }
+                                                                                                      }
+                                                                                      },
+                                                                              "422":  {
+                                                                                          "description":  "Validation Error",
+                                                                                          "content":  {
+                                                                                                          "application/json":  {
+                                                                                                                                   "schema":  {
+                                                                                                                                                  "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                              }
+                                                                                                                               }
+                                                                                                      }
+                                                                                      }
+                                                                          }
+                                                        }
+                                            },
+                  "/api/v1/market/tickers":  {
+                                                 "get":  {
+                                                             "summary":  "Get Tickers",
+                                                             "description":  "Proxy to Bitget Tickers (V2 Mix) - Bulk Fetch\nFetches ALL tickers for the product type.",
+                                                             "operationId":  "get_tickers_api_v1_market_tickers_get",
+                                                             "parameters":  [
+                                                                                {
+                                                                                    "name":  "productType",
+                                                                                    "in":  "query",
+                                                                                    "required":  false,
+                                                                                    "schema":  {
+                                                                                                   "type":  "string",
+                                                                                                   "default":  "USDT-FUTURES",
+                                                                                                   "title":  "Producttype"
+                                                                                               }
+                                                                                }
+                                                                            ],
+                                                             "responses":  {
+                                                                               "200":  {
+                                                                                           "description":  "Successful Response",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       },
+                                                                               "422":  {
+                                                                                           "description":  "Validation Error",
+                                                                                           "content":  {
+                                                                                                           "application/json":  {
+                                                                                                                                    "schema":  {
+                                                                                                                                                   "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                               }
+                                                                                                                                }
+                                                                                                       }
+                                                                                       }
+                                                                           }
+                                                         }
+                                             },
+                  "/api/smc/market/candles":  {
+                                                  "get":  {
+                                                              "summary":  "Get Candles",
+                                                              "operationId":  "get_candles_api_smc_market_candles_get",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "name":  "symbol",
+                                                                                     "in":  "query",
+                                                                                     "required":  true,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string",
+                                                                                                    "title":  "Symbol"
+                                                                                                }
+                                                                                 },
+                                                                                 {
+                                                                                     "name":  "tf",
+                                                                                     "in":  "query",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "type":  "string",
+                                                                                                    "default":  "5m",
+                                                                                                    "title":  "Tf"
+                                                                                                }
+                                                                                 },
+                                                                                 {
+                                                                                     "name":  "limit",
+                                                                                     "in":  "query",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "type":  "integer",
+                                                                                                    "maximum":  200,
+                                                                                                    "minimum":  10,
+                                                                                                    "default":  200,
+                                                                                                    "title":  "Limit"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "description":  "Successful Response",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        },
+                                                                                "422":  {
+                                                                                            "description":  "Validation Error",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+                                                                                                                                                    "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        }
+                                                                            }
+                                                          }
+                                              },
+                  "/api/v1/order":  {
+                                        "post":  {
+                                                     "summary":  "Place Order",
+                                                     "description":  "Place an order with Spot/Futures routing",
+                                                     "operationId":  "place_order_api_v1_order_post",
+                                                     "parameters":  [
+                                                                        {
+                                                                            "name":  "X-BITGET-KEY",
+                                                                            "in":  "header",
+                                                                            "required":  false,
+                                                                            "schema":  {
+                                                                                           "anyOf":  [
+                                                                                                         {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "type":  "null"
+                                                                                                         }
+                                                                                                     ],
+                                                                                           "title":  "X-Bitget-Key"
+                                                                                       }
+                                                                        },
+                                                                        {
+                                                                            "name":  "X-BITGET-SECRET",
+                                                                            "in":  "header",
+                                                                            "required":  false,
+                                                                            "schema":  {
+                                                                                           "anyOf":  [
+                                                                                                         {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "type":  "null"
+                                                                                                         }
+                                                                                                     ],
+                                                                                           "title":  "X-Bitget-Secret"
+                                                                                       }
+                                                                        },
+                                                                        {
+                                                                            "name":  "X-BITGET-PASSPHRASE",
+                                                                            "in":  "header",
+                                                                            "required":  false,
+                                                                            "schema":  {
+                                                                                           "anyOf":  [
+                                                                                                         {
+                                                                                                             "type":  "string"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "type":  "null"
+                                                                                                         }
+                                                                                                     ],
+                                                                                           "title":  "X-Bitget-Passphrase"
+                                                                                       }
+                                                                        }
+                                                                    ],
+                                                     "requestBody":  {
+                                                                         "required":  true,
+                                                                         "content":  {
+                                                                                         "application/json":  {
+                                                                                                                  "schema":  {
+                                                                                                                                 "$ref":  "#/components/schemas/OrderRequest"
+                                                                                                                             }
+                                                                                                              }
+                                                                                     }
+                                                                     },
+                                                     "responses":  {
+                                                                       "200":  {
+                                                                                   "description":  "Successful Response",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               },
+                                                                       "422":  {
+                                                                                   "description":  "Validation Error",
+                                                                                   "content":  {
+                                                                                                   "application/json":  {
+                                                                                                                            "schema":  {
+                                                                                                                                           "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                               }
+                                                                               }
+                                                                   }
+                                                 }
+                                    },
+                  "/api/v1/order/close":  {
+                                              "post":  {
+                                                           "summary":  "Close Position",
+                                                           "description":  "Close position",
+                                                           "operationId":  "close_position_api_v1_order_close_post",
+                                                           "parameters":  [
+                                                                              {
+                                                                                  "name":  "X-BITGET-KEY",
+                                                                                  "in":  "header",
+                                                                                  "required":  false,
+                                                                                  "schema":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "X-Bitget-Key"
+                                                                                             }
+                                                                              },
+                                                                              {
+                                                                                  "name":  "X-BITGET-SECRET",
+                                                                                  "in":  "header",
+                                                                                  "required":  false,
+                                                                                  "schema":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "X-Bitget-Secret"
+                                                                                             }
+                                                                              },
+                                                                              {
+                                                                                  "name":  "X-BITGET-PASSPHRASE",
+                                                                                  "in":  "header",
+                                                                                  "required":  false,
+                                                                                  "schema":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "X-Bitget-Passphrase"
+                                                                                             }
+                                                                              }
+                                                                          ],
+                                                           "requestBody":  {
+                                                                               "required":  true,
+                                                                               "content":  {
+                                                                                               "application/json":  {
+                                                                                                                        "schema":  {
+                                                                                                                                       "$ref":  "#/components/schemas/CloseRequest"
+                                                                                                                                   }
+                                                                                                                    }
+                                                                                           }
+                                                                           },
+                                                           "responses":  {
+                                                                             "200":  {
+                                                                                         "description":  "Successful Response",
+                                                                                         "content":  {
+                                                                                                         "application/json":  {
+                                                                                                                                  "schema":  {
+
+                                                                                                                                             }
+                                                                                                                              }
+                                                                                                     }
+                                                                                     },
+                                                                             "422":  {
+                                                                                         "description":  "Validation Error",
+                                                                                         "content":  {
+                                                                                                         "application/json":  {
+                                                                                                                                  "schema":  {
+                                                                                                                                                 "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                             }
+                                                                                                                              }
+                                                                                                     }
+                                                                                     }
+                                                                         }
+                                                       }
+                                          }
+              },
+    "components":  {
+                       "schemas":  {
+                                       "CandleInput":  {
+                                                           "properties":  {
+                                                                              "symbol":  {
+                                                                                             "type":  "string",
+                                                                                             "title":  "Symbol"
+                                                                                         },
+                                                                              "timestamp":  {
+                                                                                                "type":  "integer",
+                                                                                                "title":  "Timestamp"
+                                                                                            },
+                                                                              "open":  {
+                                                                                           "type":  "number",
+                                                                                           "title":  "Open"
+                                                                                       },
+                                                                              "high":  {
+                                                                                           "type":  "number",
+                                                                                           "title":  "High"
+                                                                                       },
+                                                                              "low":  {
+                                                                                          "type":  "number",
+                                                                                          "title":  "Low"
+                                                                                      },
+                                                                              "close":  {
+                                                                                            "type":  "number",
+                                                                                            "title":  "Close"
+                                                                                        },
+                                                                              "volume":  {
+                                                                                             "type":  "number",
+                                                                                             "title":  "Volume",
+                                                                                             "default":  0
+                                                                                         }
+                                                                          },
+                                                           "type":  "object",
+                                                           "required":  [
+                                                                            "symbol",
+                                                                            "timestamp",
+                                                                            "open",
+                                                                            "high",
+                                                                            "low",
+                                                                            "close"
+                                                                        ],
+                                                           "title":  "CandleInput"
+                                                       },
+                                       "CloseRequest":  {
+                                                            "properties":  {
+                                                                               "symbol":  {
+                                                                                              "type":  "string",
+                                                                                              "title":  "Symbol"
+                                                                                          },
+                                                                               "quantity":  {
+                                                                                                "type":  "number",
+                                                                                                "title":  "Quantity"
+                                                                                            },
+                                                                               "side":  {
+                                                                                            "type":  "string",
+                                                                                            "title":  "Side"
+                                                                                        }
+                                                                           },
+                                                            "type":  "object",
+                                                            "required":  [
+                                                                             "symbol",
+                                                                             "quantity",
+                                                                             "side"
+                                                                         ],
+                                                            "title":  "CloseRequest"
+                                                        },
+                                       "EnvelopeRunRequest":  {
+                                                                  "properties":  {
+                                                                                     "symbol":  {
+                                                                                                    "type":  "string",
+                                                                                                    "title":  "Symbol",
+                                                                                                    "default":  "BTCUSDT"
+                                                                                                },
+                                                                                     "leverage":  {
+                                                                                                      "type":  "integer",
+                                                                                                      "title":  "Leverage",
+                                                                                                      "default":  1
+                                                                                                  },
+                                                                                     "envelopes":  {
+                                                                                                       "items":  {
+                                                                                                                     "type":  "number"
+                                                                                                                 },
+                                                                                                       "type":  "array",
+                                                                                                       "title":  "Envelopes",
+                                                                                                       "default":  [
+                                                                                                                       0.07,
+                                                                                                                       0.1,
+                                                                                                                       0.12
+                                                                                                                   ]
+                                                                                                   },
+                                                                                     "base_window":  {
+                                                                                                         "type":  "integer",
+                                                                                                         "title":  "Base Window",
+                                                                                                         "default":  5
+                                                                                                     }
+                                                                                 },
+                                                                  "type":  "object",
+                                                                  "title":  "EnvelopeRunRequest"
+                                                              },
+                                       "HTTPValidationError":  {
+                                                                   "properties":  {
+                                                                                      "detail":  {
+                                                                                                     "items":  {
+                                                                                                                   "$ref":  "#/components/schemas/ValidationError"
+                                                                                                               },
+                                                                                                     "type":  "array",
+                                                                                                     "title":  "Detail"
+                                                                                                 }
+                                                                                  },
+                                                                   "type":  "object",
+                                                                   "title":  "HTTPValidationError"
+                                                               },
+                                       "OrderRequest":  {
+                                                            "properties":  {
+                                                                               "symbol":  {
+                                                                                              "type":  "string",
+                                                                                              "title":  "Symbol"
+                                                                                          },
+                                                                               "side":  {
+                                                                                            "type":  "string",
+                                                                                            "title":  "Side"
+                                                                                        },
+                                                                               "order_type":  {
+                                                                                                  "type":  "string",
+                                                                                                  "title":  "Order Type"
+                                                                                              },
+                                                                               "size":  {
+                                                                                            "anyOf":  [
+                                                                                                          {
+                                                                                                              "type":  "string"
+                                                                                                          },
+                                                                                                          {
+                                                                                                              "type":  "number"
+                                                                                                          },
+                                                                                                          {
+                                                                                                              "type":  "integer"
+                                                                                                          }
+                                                                                                      ],
+                                                                                            "title":  "Size"
+                                                                                        },
+                                                                               "price":  {
+                                                                                             "anyOf":  [
+                                                                                                           {
+                                                                                                               "type":  "string"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "number"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "null"
+                                                                                                           }
+                                                                                                       ],
+                                                                                             "title":  "Price"
+                                                                                         },
+                                                                               "stop_loss":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "number"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "Stop Loss"
+                                                                                             },
+                                                                               "take_profit":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "number"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "Take Profit"
+                                                                                               },
+                                                                               "pos_side":  {
+                                                                                                "anyOf":  [
+                                                                                                              {
+                                                                                                                  "type":  "string"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "type":  "null"
+                                                                                                              }
+                                                                                                          ],
+                                                                                                "title":  "Pos Side"
+                                                                                            },
+                                                                               "trade_side":  {
+                                                                                                  "anyOf":  [
+                                                                                                                {
+                                                                                                                    "type":  "string"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type":  "null"
+                                                                                                                }
+                                                                                                            ],
+                                                                                                  "title":  "Trade Side"
+                                                                                              },
+                                                                               "product_type":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "Product Type",
+                                                                                                    "default":  "USDT-FUTURES"
+                                                                                                },
+                                                                               "margin_mode":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "Margin Mode",
+                                                                                                   "default":  "isolated"
+                                                                                               },
+                                                                               "margin_coin":  {
+                                                                                                   "anyOf":  [
+                                                                                                                 {
+                                                                                                                     "type":  "string"
+                                                                                                                 },
+                                                                                                                 {
+                                                                                                                     "type":  "null"
+                                                                                                                 }
+                                                                                                             ],
+                                                                                                   "title":  "Margin Coin",
+                                                                                                   "default":  "USDT"
+                                                                                               }
+                                                                           },
+                                                            "additionalProperties":  true,
+                                                            "type":  "object",
+                                                            "required":  [
+                                                                             "symbol",
+                                                                             "side",
+                                                                             "order_type",
+                                                                             "size"
+                                                                         ],
+                                                            "title":  "OrderRequest"
+                                                        },
+                                       "StrategyConfig":  {
+                                                              "properties":  {
+                                                                                 "symbol":  {
+                                                                                                "type":  "string",
+                                                                                                "title":  "Symbol"
+                                                                                            },
+                                                                                 "account_balance":  {
+                                                                                                         "type":  "number",
+                                                                                                         "title":  "Account Balance",
+                                                                                                         "default":  10000.0
+                                                                                                     },
+                                                                                 "live_trading":  {
+                                                                                                      "type":  "boolean",
+                                                                                                      "title":  "Live Trading",
+                                                                                                      "default":  false
+                                                                                                  },
+                                                                                 "api_key":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string"
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "Api Key",
+                                                                                                 "default":  [
+                                                                                                                 null
+                                                                                                             ]
+                                                                                             },
+                                                                                 "secret_key":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "Secret Key",
+                                                                                                    "default":  [
+                                                                                                                    null
+                                                                                                                ]
+                                                                                                },
+                                                                                 "passphrase":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "Passphrase",
+                                                                                                    "default":  [
+                                                                                                                    null
+                                                                                                                ]
+                                                                                                },
+                                                                                 "strategy_mode":  {
+                                                                                                       "type":  "string",
+                                                                                                       "title":  "Strategy Mode",
+                                                                                                       "default":  [
+                                                                                                                       "smc"
+                                                                                                                   ]
+                                                                                                   },
+                                                                                 "timeframe":  {
+                                                                                                   "type":  "string",
+                                                                                                   "title":  "Timeframe",
+                                                                                                   "default":  "4h"
+                                                                                               }
+                                                                             },
+                                                              "type":  "object",
+                                                              "required":  [
+                                                                               "symbol"
+                                                                           ],
+                                                              "title":  "StrategyConfig"
+                                                          },
+                                       "ValidationError":  {
+                                                               "properties":  {
+                                                                                  "loc":  {
+                                                                                              "items":  {
+                                                                                                            "anyOf":  [
+                                                                                                                          {
+                                                                                                                              "type":  "string"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "type":  "integer"
+                                                                                                                          }
+                                                                                                                      ]
+                                                                                                        },
+                                                                                              "type":  "array",
+                                                                                              "title":  "Location"
+                                                                                          },
+                                                                                  "msg":  {
+                                                                                              "type":  "string",
+                                                                                              "title":  "Message"
+                                                                                          },
+                                                                                  "type":  {
+                                                                                               "type":  "string",
+                                                                                               "title":  "Error Type"
+                                                                                           },
+                                                                                  "input":  {
+                                                                                                "title":  "Input"
+                                                                                            },
+                                                                                  "ctx":  {
+                                                                                              "type":  "object",
+                                                                                              "title":  "Context"
+                                                                                          }
+                                                                              },
+                                                               "type":  "object",
+                                                               "required":  [
+                                                                                "loc",
+                                                                                "msg",
+                                                                                "type"
+                                                                            ],
+                                                               "title":  "ValidationError"
+                                                           }
+                                   }
+                   }
+}

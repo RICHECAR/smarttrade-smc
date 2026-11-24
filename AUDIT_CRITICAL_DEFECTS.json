@@ -1,0 +1,92 @@
+{
+  "audit_type": "STATIC_SECURITY_AUDIT",
+  "audit_date": "2026-11-10",
+  "codebase": "Kraken SMC Auto-Trader",
+  "total_defects": 7,
+  "defects": [
+    {
+      "defect_id": "DEF-001",
+      "title": "Position-Presence-As-Proof in Timeout Recovery",
+      "description": "After execution timeout, _check_order_after_timeout() treats ANY position presence on the broker as proof of order success. This violates fail-closed logic: position existence does not prove this order created it—a position could have existed before, been created by a different order, or created manually.",
+      "file": "backend/execution/broker_router.py",
+      "function": "_check_order_after_timeout",
+      "line_range": [957, 975],
+      "exact_code": "if positions:\n                    logger.warning(\n                        \"[BROKER_ROUTER] %s has positions after timeout — order may have filled\",\n                        broker,\n                    )\n                    return BrokerResult(\n                        broker=broker,\n                        status=BrokerStatus.SUCCESS,\n                        success=True,\n                        error=\"Confirmed via position check after timeout\",\n                    )",
+      "root_cause": "The code fetches positions and immediately returns SUCCESS if any position exists, WITHOUT verifying that (1) the position matches the order intent (symbol, side, quantity) or (2) the position was just created by THIS order. This is a position-presence-as-proof anti-pattern that creates phantom order success.",
+      "impact": "Orders that timeout but never filled could be incorrectly marked as successful. Conversely, a timeout recovery that DOES find a position will succeed even if it's not the trade we placed. Phantom positions lead to duplicate entries, over-leverage, or untracked losers.",
+      "evidence": "Lines 957-975: No symbol/side/qty/entry_price validation against the original intent. Position list is accepted at face value."
+    },
+    {
+      "defect_id": "DEF-002",
+      "title": "SL/TP Placement Failure Does NOT Fail the Order",
+      "description": "In kraken_futures_executor.py, if stop-loss placement fails after retries, the order is logged as CRITICAL but the result is returned with success=True (or status=UNKNOWN) without properly marking the order as failed. The emergency close may succeed or fail, but the parent order's success flag is not set to False.",
+      "file": "backend/execution/kraken_futures_executor.py",
+      "function": "_place_order_impl",
+      "line_range": [564, 590],
+      "exact_code": "if not sl_ok:\n                        logger.critical(\n                            \"[KRAKEN_SL_FAILED] ALL %d RETRIES EXHAUSTED — EMERGENCY CLOSE %s\",\n                            retry_count, kraken_symbol,\n                        )\n                        emergency_result = await self._place_order_rest(\n                            symbol=kraken_symbol,\n                            side=close_side,\n                            quantity=quantity,\n                            order_type=\"market\",\n                            reduce_only=True,\n                        )\n                        emergency_close_ok = _confirmed_kraken_close_fill(\n                            emergency_result,\n                            quantity,\n                        )\n                        if not emergency_close_ok:\n                            logger.critical(\n                                \"[KRAKEN_SL_FAILED] Emergency close fill was not confirmed | symbol=%s | response=%s\",\n                                kraken_symbol,\n                                emergency_result,\n                            )\n                        result[\"_sl_emergency_close\"] = emergency_close_ok\n                        result[\"emergency_close_result\"] = emergency_result\n                        result[\"sl_attached\"] = False\n                        return result",
+      "root_cause": "The function returns `result` with the original order data intact (including position, filled_qty, fill_price) even though the SL could not be attached and emergency close may have failed. The caller will see filled_qty and assume the order succeeded, not realizing it was unprotected and emergency-closed.",
+      "impact": "An order that fills but whose SL cannot be placed will be persisted as a successful OPEN trade without stop loss protection. If the emergency close fails, the position is now naked (no SL/TP). Dashboard and OrderManager will treat this as a normal fill and update PnL, exposing account to unprotected liquidation.",
+      "evidence": "Lines 564-590: After emergency close, result dict is returned WITHOUT setting success=False or status to indicate failure. The position, filled_qty, and avg_price are still in the result."
+    },
+    {
+      "defect_id": "DEF-003",
+      "title": "Fill Verification Bypass in Broker Router Response Parsing",
+      "description": "In broker_router.py _parse_executor_response(), for Kraken responses, if fill_quantity_verified or fill_price_verified is not True, the code sets success=False but then STILL returns fill_price and quantity values to the caller. This allows persistence to proceed with unverified fills.",
+      "file": "backend/execution/broker_router.py",
+      "function": "_parse_executor_response",
+      "line_range": [839, 860],
+      "exact_code": "fill_verified = (\n                    fill_verified\n                    and response.get(\"fill_price_verified\") is True\n                    and qty_unit == \"contracts\"\n                    and quantity is not None\n                    and math.isfinite(quantity)\n                    and quantity > 0\n                    and fill_price is not None\n                    and math.isfinite(fill_price)\n                    and fill_price > 0\n                )\n                if not fill_verified:\n                    success = False\n                    status = BrokerStatus.UNKNOWN\n                    error = \"Kraken execution response lacks a confirmed contract fill and price\"\n            return BrokerResult(\n                broker=broker,\n                status=status,\n                success=success,\n                order_id=response.get(\"order_id\"),\n                fill_price=fill_price if fill_verified or broker != \"kraken\" else None,\n                quantity=quantity if fill_verified or broker != \"kraken\" else None,",
+      "root_cause": "When fill_verified=False for Kraken, the code correctly nullifies fill_price and quantity in the RETURN statement. However, the issue is subtle: if the response has BOTH success=True AND fill_verified=False, status is set to UNKNOWN but success remains True from the response. Callers checking `result.success` without checking `result.status` will see True.",
+      "impact": "A Kraken order response that claims success but has unverified fills will be returned with success=True, allowing downstream persistence to write an OPEN trade without confirmed contract fills. This violates the critical rule that Kraken OPEN trades MUST have verified fill_qty and fill_price.",
+      "evidence": "Lines 839-860: The condition `if fill_verified ... else None` nullifies quantities, but success flag is determined by response.get('success') without re-checking fill_verified."
+    },
+    {
+      "defect_id": "DEF-004",
+      "title": "Manual Route Allows Persistence Without Broker Proof",
+      "description": "In backend/routes/manual.py, the _execute_single_broker() function calls _kraken_executor.place_order() and persists the result to the database WITHOUT validating that the response contains Kraken proof (fill_quantity_verified and fill_price_verified). The caller trusts whatever result is returned.",
+      "file": "backend/routes/manual.py",
+      "function": "_execute_single_broker",
+      "line_range": [880, 920],
+      "exact_code": "# Place order\n    result = await _kraken_executor.place_order(\n        symbol=symbol,\n        direction=side,\n        entry_price=intent.entry_price,\n        stop_loss=intent.stop_loss,\n        take_profit=intent.take_profit or 0,\n        order_type=\"market\",\n        leverage=intent.leverage,",
+      "root_cause": "After place_order() returns, the code does not explicitly verify fill_quantity_verified and fill_price_verified before calling persistence. The result dict is passed to persistence logic that may check these fields, but manual.py does not enforce it at the route level.",
+      "impact": "A manual trade executed via the API could be persisted with unverified fills if the executor's response parsing was incomplete. The route acts as a trust boundary and should re-validate before persistence.",
+      "evidence": "Lines 880-920: No validation of result.get('fill_quantity_verified') or result.get('fill_price_verified') after place_order() returns, before persistence is initiated."
+    },
+    {
+      "defect_id": "DEF-005",
+      "title": "Emergency Close Logic Bypasses Normal Validation",
+      "description": "In kraken_futures_executor.py, when SL attachment fails and emergency close is initiated (line 569-587), the emergency_close_result is checked with _confirmed_kraken_close_fill() which is a different validation than what is used for normal fills. If _confirmed_kraken_close_fill() returns False, the order is still marked as returned (not failed) and logged at CRITICAL, but persistence may still consume it.",
+      "file": "backend/execution/kraken_futures_executor.py",
+      "function": "_place_order_impl",
+      "line_range": [569, 587],
+      "exact_code": "emergency_close_ok = _confirmed_kraken_close_fill(\n                            emergency_result,\n                            quantity,\n                        )\n                        if not emergency_close_ok:\n                            logger.critical(\n                                \"[KRAKEN_SL_FAILED] Emergency close fill was not confirmed | symbol=%s | response=%s\",\n                                kraken_symbol,\n                                emergency_result,\n                            )\n                        result[\"_sl_emergency_close\"] = emergency_close_ok\n                        result[\"emergency_close_result\"] = emergency_result\n                        result[\"sl_attached\"] = False\n                        return result",
+      "root_cause": "Emergency close is a last-resort fallback when normal SL attachment fails. However, the result is returned with status still indicating the original fill succeeded (with position, filled_qty, avg_price intact), not reflecting that emergency close failed. The caller will not know the difference between 'SL attached' and 'SL failed + emergency close failed'.",
+      "impact": "If emergency close fails, the returned result still contains filled_qty and avg_price, leading persistence to create an OPEN trade that was supposed to be emergency-closed. Account is left with a naked long/short position with no protection and no fill recorded in the journal.",
+      "evidence": "Lines 569-587: emergency_close_ok is recorded but not used to set success=False or return early. The result dict is returned as-is, with only sl_attached=False and emergency_close_result appended."
+    },
+    {
+      "defect_id": "DEF-006",
+      "title": "Kraken OPEN Trade Persistence Without Metadata Verification",
+      "description": "In live_trades_service.py create_live_trade(), for Kraken OPEN trades, the code validates fill_quantity_verified and fill_price_verified (lines 207-224). However, this validation happens AFTER the trade object is created, and if validation fails, it returns None but the caller may still attempt persistence or assume the order was valid.",
+      "file": "backend/services/live_trades_service.py",
+      "function": "create_live_trade",
+      "line_range": [200, 224],
+      "exact_code": "if broker.lower() == \"kraken\" and status.upper() == \"OPEN\":\n                raw_exchange = raw_exchange or {}\n                try:\n                    qty = float(qty)\n                    entry = float(entry)\n                    verified_qty = float(raw_exchange.get(\"filled_qty\"))\n                    verified_price = float(\n                        raw_exchange.get(\"avg_price\")\n                        or raw_exchange.get(\"price_executed\")\n                    )\n                except (TypeError, ValueError, OverflowError):\n                    logger.error(\"[LIVE_DB] Refusing Kraken OPEN trade with invalid fill values\")\n                    return None\n                qty_unit = qty_unit or raw_exchange.get(\"qty_unit\")\n                if (\n                    qty_unit != \"contracts\"\n                    or raw_exchange.get(\"qty_unit\") != \"contracts\"\n                    or raw_exchange.get(\"fill_quantity_verified\") is not True\n                    or raw_exchange.get(\"fill_price_verified\") is not True",
+      "root_cause": "The validation is correct, but it only affects whether the function returns None. Callers in trade_persistence_hook.py call this function and if it returns None, they log an error but may not propagate the error back to the executor or order manager. The order manager may believe the order succeeded because it received a response.",
+      "impact": "When a Kraken OPEN trade fails validation, the error is silently swallowed in trade_persistence_hook.on_trade_opened(). The executor's result (with success=True) is not rolled back or cancelled. Order manager treats the order as executed, but no trade is recorded in the database.",
+      "evidence": "Lines 207-224: Validation returns None on failure, but the caller (on_trade_opened) only logs and returns None without signaling failure to the order manager or broker."
+    },
+    {
+      "defect_id": "DEF-007",
+      "title": "Persistence Hook Missing Failure Propagation for Unconfirmed Kraken Fills",
+      "description": "In trade_persistence_hook.py on_trade_opened(), when a Kraken order has qty=None or entry=None, the function silently returns None without marking the order as FAILED on the broker. The executor's result (which may have success=True with a position visible) is not reconciled with the fact that persistence refused to record it.",
+      "file": "backend/services/trade_persistence_hook.py",
+      "function": "on_trade_opened",
+      "line_range": [60, 95],
+      "exact_code": "try:\n        # Construct context for helper (standardizing input)\n        context = {\n            \"symbol\": symbol,\n            \"direction\": side,\n            \"entry\": entry,\n            \"stop_loss\": stop,\n            \"take_profit\": tp,\n            \"leverage\": leverage,\n            \"session\": session_name,\n            \"preset\": preset,\n            \"signal_id\": signal_id,\n            \"broker\": broker,\n            \"parent_trade_id\": parent_trade_id,\n            \"status\": status,\n            \"error_message\": error_message,\n        }\n        \n        order_data = dict(raw_exchange or {})\n        order_data.setdefault(\"entry_order_id\", order_id)\n        if broker.lower() != \"kraken\":\n            order_data.setdefault(\"price_executed\", entry)\n            order_data.setdefault(\"quantity\", qty)\n        if qty_unit:\n            order_data.setdefault(\"qty_unit\", qty_unit)\n        \n        # Use new standardized helper\n        trade = await LiveTradesService.create_live_trade_from_order(order_data, context)\n        \n        if trade:\n            # Broadcast to dashboard\n            await broadcast_trade_event(\"trade_opened\", trade)\n            return trade\n        else:\n            logger.error(f\"[PERSISTENCE] Failed to persist trade: order_id={order_id}\")\n            return None",
+      "root_cause": "When create_live_trade_from_order() returns None (due to Kraken fill validation failure), on_trade_opened() logs the error and returns None. However, the order manager/executor has already marked the order as 'open' with a confirmed position. The hook should cancel/close the orphaned position on the broker or raise an exception to alert the order manager.",
+      "impact": "A Kraken order that fills but whose fills cannot be verified is persisted as NOTHING in the database, while a position remains open on Kraken. On the next restart, the position will not be recovered (because no LiveTrade exists). Account will have orphaned positions that are not tracked in OrderManager's state, leading to duplicate entries or mismatched leverage.",
+      "evidence": "Lines 60-95: If trade is None, the function returns None without any callback to cancel the order or alert the broker. Order manager continues execution assuming success."
+    }
+  ]
+}

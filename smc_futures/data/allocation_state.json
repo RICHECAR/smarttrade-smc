@@ -1,0 +1,34 @@
+{
+    "SOLUSDT": {
+        "current_capital": 10000.0,
+        "last_action": "hold",
+        "reason": "MAX_CAPITAL_REACHED",
+        "regime": "NORMAL",
+        "timestamp": 1775243657.6947203,
+        "status": "GREEN"
+    },
+    "BTCUSDT": {
+        "current_capital": 10000.0,
+        "last_action": "hold",
+        "reason": "MAX_CAPITAL_REACHED",
+        "regime": "NORMAL",
+        "timestamp": 1775243724.7534134,
+        "status": "GREEN"
+    },
+    "ETHUSDT": {
+        "current_capital": 10000.0,
+        "last_action": "hold",
+        "reason": "MAX_CAPITAL_REACHED",
+        "regime": "NORMAL",
+        "timestamp": 1775243732.6231353,
+        "status": "GREEN"
+    },
+    "XRPUSDT": {
+        "current_capital": 1000.0,
+        "last_action": "hold",
+        "reason": "BUILDING_STREAK: 0/60min",
+        "regime": "NORMAL",
+        "timestamp": 1775177761.7182372,
+        "status": "GREEN"
+    }
+}

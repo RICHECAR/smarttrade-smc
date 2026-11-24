@@ -1,0 +1,11 @@
+{
+    "timestamp": "2026-04-04T17:05:46.422019+00:00",
+    "reason": "PERFORMANCE_DROP",
+    "updates": {
+        "ASIA_MAX_RANGE_RATIO_BTC": 6.0,
+        "ASIA_MAX_RANGE_RATIO_ETH": 5.0,
+        "ASIA_MAX_RANGE_RATIO_ALT": 4.0,
+        "ASIA_RISK_FACTOR": 0.5
+    },
+    "file_modified": "C:\\Users\\cleor\\Downloads\\bitget-smc-auto-trader\\tests\\test_smc_config.py"
+}

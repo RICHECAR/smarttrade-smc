@@ -1,0 +1,278 @@
+======================================================================
+  CHANTIER 13 — REPOSITIONNEMENT COMPLET
+  Axes: [1, 2, 3, 4] | Days: 90
+  Date: 2026-03-27T11:03:09.727061+00:00
+======================================================================
+
+  [1] HTF Trend 4H (BTCUSDT 4h)
+    Trades: 6
+    Win Rate: 50.0%
+    Profit Factor: 0.86
+    Expectancy: $-8.60/trade
+    Net PnL: $-51.58
+    Max DD: 5.9%
+    Sharpe: -3.16
+    Edge Ratio: 2.65
+    Score: 30.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 2L (50.0%WR) / 4S (50.0%WR)
+    Fees: $18.04 | Slippage: $144.41
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.9s
+
+  [1] HTF Trend 1D (BTCUSDT 1d)
+    Trades: 0
+    Win Rate: 0.0%
+    Profit Factor: 0.00
+    Expectancy: $0.00/trade
+    Net PnL: $0.00
+    Max DD: 0.0%
+    Sharpe: 0.00
+    Edge Ratio: 0.00
+    Score: 25.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 0L (0.0%WR) / 0S (0.0%WR)
+    Fees: $0.00 | Slippage: $0.00
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.0s
+
+  [2] Long-Only 4H (BTCUSDT 4h)
+    Trades: 4
+    Win Rate: 0.0%
+    Profit Factor: 0.00
+    Expectancy: $-76.74/trade
+    Net PnL: $-306.97
+    Max DD: 3.1%
+    Sharpe: -183.89
+    Edge Ratio: 0.47
+    Score: 25.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 4L (0.0%WR) / 0S (0.0%WR)
+    Fees: $10.42 | Slippage: $59.10
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.5s
+
+  [3] Funding Counter-Crowd (BTCUSDT 4h)
+    Trades: 19
+    Win Rate: 42.1%
+    Profit Factor: 0.57
+    Expectancy: $-21.93/trade
+    Net PnL: $-416.66
+    Max DD: 5.8%
+    Sharpe: -17.89
+    Edge Ratio: 0.73
+    Score: 30.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 10L (30.0%WR) / 9S (55.6%WR)
+    Fees: $41.01 | Slippage: $388.57
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.4s
+
+  [3] Funding Trend-Aligned (BTCUSDT 4h)
+    Trades: 15
+    Win Rate: 53.3%
+    Profit Factor: 0.82
+    Expectancy: $-7.98/trade
+    Net PnL: $-119.63
+    Max DD: 3.7%
+    Sharpe: -5.73
+    Edge Ratio: 1.03
+    Score: 30.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 6L (50.0%WR) / 9S (55.6%WR)
+    Fees: $30.28 | Slippage: $203.47
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.4s
+
+  [4] HTF Trend ETH (ETHUSDT 4h)
+    Trades: 7
+    Win Rate: 42.9%
+    Profit Factor: 1.08
+    Expectancy: $6.00/trade
+    Net PnL: $42.03
+    Max DD: 5.9%
+    Sharpe: 2.06
+    Edge Ratio: 2.92
+    Score: 58.20463151608244/100
+    Verdict: EDGE INVALIDATED
+    L/S: 2L (50.0%WR) / 5S (40.0%WR)
+    Fees: $17.07 | Slippage: $116.90
+    WF: NOT ROBUST | MC: ROBUST
+    Duration: 1.1s
+
+  [4] Long-Only ETH (ETHUSDT 4h)
+    Trades: 5
+    Win Rate: 20.0%
+    Profit Factor: 0.56
+    Expectancy: $-29.39/trade
+    Net PnL: $-146.97
+    Max DD: 2.3%
+    Sharpe: -17.46
+    Edge Ratio: 0.60
+    Score: 25.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 5L (20.0%WR) / 0S (0.0%WR)
+    Fees: $9.78 | Slippage: $109.29
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.5s
+
+  [4] HTF Trend SOL (SOLUSDT 4h)
+    Trades: 5
+    Win Rate: 40.0%
+    Profit Factor: 1.50
+    Expectancy: $16.21/trade
+    Net PnL: $81.07
+    Max DD: 2.1%
+    Sharpe: 6.06
+    Edge Ratio: 2.42
+    Score: 65.77098885220462/100
+    Verdict: EDGE INVALIDATED
+    L/S: 3L (0.0%WR) / 2S (100.0%WR)
+    Fees: $9.02 | Slippage: $105.92
+    WF: NOT ROBUST | MC: ROBUST
+    Duration: 0.6s
+
+  [4] Long-Only SOL (SOLUSDT 4h)
+    Trades: 3
+    Win Rate: 0.0%
+    Profit Factor: 0.00
+    Expectancy: $-55.26/trade
+    Net PnL: $-165.79
+    Max DD: 2.1%
+    Sharpe: -247.09
+    Edge Ratio: 0.98
+    Score: 25.0/100
+    Verdict: EDGE INVALIDATED
+    L/S: 3L (0.0%WR) / 0S (0.0%WR)
+    Fees: $6.25 | Slippage: $71.40
+    WF: NOT ROBUST | MC: NOT ROBUST
+    Duration: 0.5s
+
+==============================================================================================================
+  COMPARISON TABLE — CHANTIER 13 ALL AXES
+==============================================================================================================
+Axe   Alpha                        Sym      TF   Trades    WR%     PF     Exp$       PnL$    DD%   Edge Score Verdict       
+--------------------------------------------------------------------------------------------------------------
+  1   HTF Trend 4H                 BTCUSDT  4h        6  50.0%  0.86   -8.60    -51.58   5.9%  2.65  30.0 EDGE INVALIDATED
+  1   HTF Trend 1D                 BTCUSDT  1d        0   0.0%  0.00    0.00      0.00   0.0%  0.00  25.0 EDGE INVALIDATED
+  2   Long-Only 4H                 BTCUSDT  4h        4   0.0%  0.00  -76.74   -306.97   3.1%  0.47  25.0 EDGE INVALIDATED
+  3   Funding Counter-Crowd        BTCUSDT  4h       19  42.1%  0.57  -21.93   -416.66   5.8%  0.73  30.0 EDGE INVALIDATED
+  3   Funding Trend-Aligned        BTCUSDT  4h       15  53.3%  0.82   -7.98   -119.63   3.7%  1.03  30.0 EDGE INVALIDATED
+  4   HTF Trend ETH                ETHUSDT  4h        7  42.9%  1.08    6.00     42.03   5.9%  2.92 58.20463151608244 EDGE INVALIDATED
+  4   Long-Only ETH                ETHUSDT  4h        5  20.0%  0.56  -29.39   -146.97   2.3%  0.60  25.0 EDGE INVALIDATED
+  4   HTF Trend SOL                SOLUSDT  4h        5  40.0%  1.50   16.21     81.07   2.1%  2.42 65.77098885220462 EDGE INVALIDATED
+  4   Long-Only SOL                SOLUSDT  4h        3   0.0%  0.00  -55.26   -165.79   2.1%  0.98  25.0 EDGE INVALIDATED
+--------------------------------------------------------------------------------------------------------------
+
+======================================================================
+  VERDICT FINAL — CHANTIER 13
+  REPOSITIONNEMENT: HTF / LONG-ONLY / FUNDING / MULTI-MARKET
+======================================================================
+
+  [1] HTF Trend 4H (BTCUSDT 4h):
+    [FAIL] Expectancy > 0       = $-8.60
+    [FAIL] PF >= 1.3            = 0.86
+    [PASS] Edge Ratio > 1       = 2.65
+    [PASS] Max DD <= 25%        = 5.9%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [FAIL] Trades >= 10         = 6
+    Score: 2/7 criteria passed
+
+  [1] HTF Trend 1D (BTCUSDT 1d):
+    [FAIL] Expectancy > 0       = $0.00
+    [FAIL] PF >= 1.3            = 0.00
+    [FAIL] Edge Ratio > 1       = 0.00
+    [PASS] Max DD <= 25%        = 0.0%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [FAIL] Trades >= 10         = 0
+    Score: 1/7 criteria passed
+
+  [2] Long-Only 4H (BTCUSDT 4h):
+    [FAIL] Expectancy > 0       = $-76.74
+    [FAIL] PF >= 1.3            = 0.00
+    [FAIL] Edge Ratio > 1       = 0.47
+    [PASS] Max DD <= 25%        = 3.1%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [FAIL] Trades >= 10         = 4
+    Score: 1/7 criteria passed
+
+  [3] Funding Counter-Crowd (BTCUSDT 4h):
+    [FAIL] Expectancy > 0       = $-21.93
+    [FAIL] PF >= 1.3            = 0.57
+    [FAIL] Edge Ratio > 1       = 0.73
+    [PASS] Max DD <= 25%        = 5.8%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 19
+    Score: 2/7 criteria passed
+
+  [3] Funding Trend-Aligned (BTCUSDT 4h):
+    [FAIL] Expectancy > 0       = $-7.98
+    [FAIL] PF >= 1.3            = 0.82
+    [PASS] Edge Ratio > 1       = 1.03
+    [PASS] Max DD <= 25%        = 3.7%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [PASS] Trades >= 10         = 15
+    Score: 3/7 criteria passed
+
+  [4] HTF Trend ETH (ETHUSDT 4h):
+    [PASS] Expectancy > 0       = $6.00
+    [FAIL] PF >= 1.3            = 1.08
+    [PASS] Edge Ratio > 1       = 2.92
+    [PASS] Max DD <= 25%        = 5.9%
+    [FAIL] WF Robust            = NO
+    [PASS] MC Robust            = YES
+    [FAIL] Trades >= 10         = 7
+    Score: 4/7 criteria passed
+
+  [4] Long-Only ETH (ETHUSDT 4h):
+    [FAIL] Expectancy > 0       = $-29.39
+    [FAIL] PF >= 1.3            = 0.56
+    [FAIL] Edge Ratio > 1       = 0.60
+    [PASS] Max DD <= 25%        = 2.3%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [FAIL] Trades >= 10         = 5
+    Score: 1/7 criteria passed
+
+  [4] HTF Trend SOL (SOLUSDT 4h):
+    [PASS] Expectancy > 0       = $16.21
+    [PASS] PF >= 1.3            = 1.50
+    [PASS] Edge Ratio > 1       = 2.42
+    [PASS] Max DD <= 25%        = 2.1%
+    [FAIL] WF Robust            = NO
+    [PASS] MC Robust            = YES
+    [FAIL] Trades >= 10         = 5
+    Score: 5/7 criteria passed
+
+  [4] Long-Only SOL (SOLUSDT 4h):
+    [FAIL] Expectancy > 0       = $-55.26
+    [FAIL] PF >= 1.3            = 0.00
+    [FAIL] Edge Ratio > 1       = 0.98
+    [PASS] Max DD <= 25%        = 2.1%
+    [FAIL] WF Robust            = NO
+    [FAIL] MC Robust            = NO
+    [FAIL] Trades >= 10         = 3
+    Score: 1/7 criteria passed
+
+  =======================================================
+  |                                                     |
+  |                    EDGE WEAK                        |
+  |          (prometteuse mais pas robuste)             |
+  |                                                     |
+  =======================================================
+
+  DIAGNOSTIC:
+  - Meilleure alpha: HTF Trend SOL (SOLUSDT 4h)
+    PF=1.50, WR=40.0%, Exp=$16.21
+    Slippage domine: $106 vs PnL $81
+  - AXE 1 (HTF TREND): best PF=0.86, 6 trades
+  - AXE 2 (LONG-ONLY): best PF=0.00, 4 trades
+  - AXE 3 (FUNDING): best PF=0.82, 15 trades
+  - AXE 4 (MULTI-MARKET): best PF=1.50, 5 trades
+
+  Total execution time: 20.0s

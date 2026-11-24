@@ -1,0 +1,31 @@
+# Phase 4 Asymmetric Scaling Policy
+# This file dictates upper bounds and limits for progressive multi-exchange scaling.
+# Do NOT modify dynamically via code. Read-only limits.
+
+capital_tiers:
+  - tier: 1
+    max_capital_usd: 100
+    description: "Micro-Capital Probation"
+  - tier: 2
+    max_capital_usd: 500
+    description: "Early Scale"
+  - tier: 3
+    max_capital_usd: 1000
+    description: "Production Benchmark"
+    
+performance_bounds:
+  # The maximum % of primary maker orders that hit the timeout (max_wait_ms)
+  # without being filled. If this breaches, the market is too fast or limits are poorly placed.
+  max_primary_timeout_pct: 5.0
+  
+  # The 95th percentile latency limit for the Secondary Hedge (Market Taker).
+  # If the hedge takes longer than this (in milliseconds), there is severe network latency/desync.
+  max_hedge_latency_p95: 450
+  
+scale_rules:
+  scale_up_step_pct: 100.0  # Double capital at most per scaling step
+  
+freeze_conditions:
+  # Any occurrence of these instantly halts scaling and triggers a trading freeze
+  max_orphan_count: 0
+  max_late_fill_count: 0

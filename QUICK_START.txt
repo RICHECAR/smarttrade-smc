@@ -1,0 +1,210 @@
+  BITGET SMC AUTO-TRADER — GUIDE DE DÉMARRAGE RAPIDE
+  Version 2.0 | 19 février 2026 | PRÊT AU DEPLOIEMENT
+
+
+═══════════════════════════════════════════════════════════════
+1  VALIDER L'INSTALLATION
+═══════════════════════════════════════════════════════════════
+
+$ cd bitget-smc-auto-trader
+$ python -m pytest tests/test_auto_exec_hook.py -v
+$ python -m pytest tests/test_live_safeguards.py -v
+
+Résultat attendu : 25+ TESTS PASSENT
+
+
+═══════════════════════════════════════════════════════════════
+2  CONFIGURER L'ENVIRONNEMENT
+═══════════════════════════════════════════════════════════════
+
+Modifier ou créer .env :
+
+# CRITIQUE
+TRADING_MODE=live                    # OU : paper
+AUTO_EXECUTE=shadow                  # OU : false|true
+BITGET_PRODUCT_TYPE=USDT-FUTURES
+
+# CLÉS API (NE JAMAIS PARTAGER)
+BITGET_API_KEY=votre_cle
+BITGET_API_SECRET=votre_secret
+BITGET_PASSPHRASE=votre_passphrase
+
+# PROTECTIONS (commencer prudemment)
+MAX_TRADES_PER_DAY=1                 # Commencer à 1 !
+MAX_OPEN_TRADES_PER_SYMBOL=1
+TRADE_COOLDOWN_SEC=300               # Temporisation 5 min
+MIN_RR=1.5                           # Ratio Risque/Récompense
+
+# TRADING
+BOT_SYMBOLS=BTCUSDT,ETHUSDT
+BOT_LEVERAGE=3
+RISK_PCT=0.01                        # 1% par trade
+
+
+═══════════════════════════════════════════════════════════════
+3  DÉMARRER LES SERVICES (PHASE 2 : MODE SHADOW)
+═══════════════════════════════════════════════════════════════
+
+Terminal 1 : Moteur SMC
+  $ python run.py
+
+Terminal 2 : Frontend React
+  $ npm run dev
+  
+Terminal 3 : Surveillance des logs
+  $ tail -f logs/smc-engine.log
+
+
+═══════════════════════════════════════════════════════════════
+4  TESTER LE MODE SHADOW (simulation 24h)
+═══════════════════════════════════════════════════════════════
+
+AUTO_EXECUTE=shadow
+TRADING_MODE=live
+
+Surveiller les logs pour :
+   [SIGNAL] Signal trouvé
+   [DRY_RUN] WOULD_SEND order_id=DRY_RUN_...
+   AUCUN ordre réel envoyé
+   Réinitialisation quotidienne à minuit UTC
+
+Tester le kill-switch :
+  $ curl -X POST http://localhost:8000/api/bot/kill-switch \
+    -H "Content-Type: application/json" \
+    -d '{"enabled": true, "reason": "Test"}'
+
+Résultat attendu : [KILL_SWITCH] ACTIVÉ, tous les signaux bloqués
+
+
+═══════════════════════════════════════════════════════════════
+5  PASSAGE EN LIVE (uniquement après réussite Phase 2)
+═══════════════════════════════════════════════════════════════
+
+  VÉRIFICATIONS CRITIQUES PRÉ-LIVE :
+   Phase 2 exécutée pendant 24 heures (logs propres)
+   Kill-switch vérifié fonctionnel
+   MAX_TRADES_PER_DAY=1 configuré
+   RISK_PCT=0.01 configuré
+   Petit compte test (< 100$)
+   Approbation de l'équipe obtenue
+
+Puis mettre à jour .env :
+  AUTO_EXECUTE=true
+  TRADING_MODE=live
+  MAX_TRADES_PER_DAY=1
+
+Et redémarrer les services.
+
+Surveiller le premier ordre :
+   [ORDER] ENVOI EN COURS
+   [EXEC] OK orderId=...
+   Ordre visible sur Bitget
+   TP/SL attachés
+
+
+═══════════════════════════════════════════════════════════════
+6  MONTÉE EN CHARGE (après cycle de trade réussi)
+═══════════════════════════════════════════════════════════════
+
+Jour 3-5  :  MAX_TRADES_PER_DAY=2, RISK_PCT=0.01
+Jour 6-10 :  MAX_TRADES_PER_DAY=3, RISK_PCT=0.015
+Jour 11+  :  MAX_TRADES_PER_DAY=5, RISK_PCT=0.02
+
+Augmenter progressivement, surveiller quotidiennement.
+
+
+═══════════════════════════════════════════════════════════════
+  PROCÉDURES D'URGENCE
+═══════════════════════════════════════════════════════════════
+
+ARRÊT IMMÉDIAT :
+  $ curl -X POST http://localhost:8000/api/bot/kill-switch \
+    -H "Content-Type: application/json" \
+    -d '{"enabled": true, "reason": "URGENCE"}'
+  
+   BLOQUE TOUS LES ORDRES IMMÉDIAMENT
+   Log : [KILL_SWITCH] ACTIVÉ
+
+RETOUR EN SHADOW :
+  1. Modifier .env : AUTO_EXECUTE=shadow
+  2. Redémarrer les services
+   Prochains signaux = DRY_RUN (0 risque)
+
+ARRÊT COMPLET :
+  1. Ctrl+C sur les processus Python
+  2. Ou modifier .env : AUTO_EXECUTE=false
+   Signaux seulement (pas d'exécution auto)
+
+
+═══════════════════════════════════════════════════════════════
+ ENDPOINTS API (pour le monitoring)
+═══════════════════════════════════════════════════════════════
+
+Vérification santé :
+  GET http://localhost:8000/health
+   {"status": "ok", "auto_execute_mode": "shadow"}
+
+Statut (incluant les protections) :
+  GET http://localhost:8000/api/status
+   {"trading_mode": "live", "kill_switch_enabled": false, ...}
+
+Statistiques du jour :
+  GET http://localhost:8000/api/bot/stats
+   {"daily_trades": 0, "pnl_usd": 0, ...}
+
+Contrôle Kill-Switch :
+  POST http://localhost:8000/api/bot/kill-switch
+  Body : {"enabled": true|false, "reason": "..."}
+
+
+═══════════════════════════════════════════════════════════════
+ FICHIERS CLÉS
+═══════════════════════════════════════════════════════════════
+
+Cœur :
+   backend/engine/execution/order_manager_v2.py
+   backend/engine/execution/bitget_v2_executor.py
+   smc_futures/api_smc_engine.py
+   smc_futures/smc_config.py
+   smc_futures/app_context.py
+
+Tests :
+   tests/test_auto_exec_hook.py
+   tests/test_bitget_v2_silent_bugs.py
+   tests/test_shadow_zero_network.py
+   tests/test_live_safeguards.py
+
+Documentation :
+   GO_LIVE_SUMMARY.txt (référence complète)
+   QUICK_START.txt (ce fichier)
+
+
+═══════════════════════════════════════════════════════════════
+ DÉPANNAGE
+═══════════════════════════════════════════════════════════════
+
+Ordres bloqués avec [REJECT] reason=COOLDOWN_ACTIVE ?
+   Attendre 300+ secondes, ou réduire TRADE_COOLDOWN_SEC
+
+Ordres bloqués avec [REJECT] reason=INVALID_TP_SL_GEOMETRY ?
+   Vérifier : LONG (SL < entrée < TP), SHORT (TP < entrée < SL)
+
+Ordres bloqués avec [REJECT] reason=MAX_TRADES_PER_DAY ?
+   Attendre le reset UTC à minuit, ou augmenter MAX_TRADES_PER_DAY
+
+Aucun ordre exécuté malgré AUTO_EXECUTE_MODE=true ?
+   Vérifier les logs pour [REJECT] ou [HTTP_FAIL]
+   Vérifier que BITGET_API_KEY est configuré
+   Vérifier le statut kill-switch : GET /api/status
+
+
+Questions ? Consulter :
+  1. GO_LIVE_SUMMARY.txt (référence détaillée)
+  2. Logs : [REJECT], [EXEC], [HTTP_FAIL]
+  3. Statut API : GET /api/status
+  4. Kill-switch : POST /api/bot/kill-switch
+
+Prêt ? Commencer à Phase 1 (tests) → Phase 2 (shadow 24h) →
+        Phase 3 (live, 1 trade) → Phase 4 (montée en charge)
+
+ Bon trading ! N'oubliez pas : commencez avec MAX_TRADES_PER_DAY=1 

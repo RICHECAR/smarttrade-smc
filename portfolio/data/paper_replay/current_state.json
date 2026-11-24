@@ -1,0 +1,46 @@
+{
+  "total_value": 205791.83,
+  "cash": 0.04,
+  "invested": 205791.79,
+  "inception_date": "2023-03-31",
+  "rebal_count": 37,
+  "weights": {
+    "JNJ": 0.2119,
+    "XOM": 0.2033,
+    "XLE": 0.2106,
+    "XLP": 0.1788,
+    "XLU": 0.1956
+  },
+  "positions": {
+    "JNJ": {
+      "ticker": "JNJ",
+      "shares": 180.308225,
+      "avg_cost": 209.0229,
+      "current_price": 241.795
+    },
+    "XOM": {
+      "ticker": "XOM",
+      "shares": 245.713046,
+      "avg_cost": 141.0414,
+      "current_price": 170.235
+    },
+    "XLE": {
+      "ticker": "XLE",
+      "shares": 691.160815,
+      "avg_cost": 55.557,
+      "current_price": 62.695
+    },
+    "XLP": {
+      "ticker": "XLP",
+      "shares": 448.418588,
+      "avg_cost": 82.04,
+      "current_price": 82.04
+    },
+    "XLU": {
+      "ticker": "XLU",
+      "shares": 875.168245,
+      "avg_cost": 45.985,
+      "current_price": 45.985
+    }
+  }
+}

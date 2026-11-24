@@ -1,0 +1,8 @@
+{
+  "active": true,
+  "trigger": "reconciler_v2",
+  "reason": "Reconciliation critical divergence: phantom_db:PF_ETHUSD",
+  "activated_at": "2026-11-24T12:04:51.549548+00:00",
+  "deactivated_at": null,
+  "deactivated_by": null
+}

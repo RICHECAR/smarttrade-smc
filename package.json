@@ -1,0 +1,29 @@
+{
+  "name": "kraken-smc-auto-trader",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:frontend": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start:backend": "python run.py",
+    "start:backend:dev": "python run.py --reload",
+    "start:all": "concurrently \"npm run start:backend\" \"npm run dev\"",
+    "test:backend": "curl -f http://localhost:8000/api/health || echo 'Backend not running! Start with: npm run start:backend'"
+  },
+  "dependencies": {
+    "lucide-react": "^0.564.0",
+    "recharts": "^3.7.0",
+    "react-dom": "^19.2.4",
+    "react": "^19.2.4",
+    "crypto-js": "4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}

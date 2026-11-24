@@ -1,0 +1,94 @@
+# ═══════════════════════════════════════════════════════════════════════
+# Phase 6 — Prometheus Alert Rules
+# ═══════════════════════════════════════════════════════════════════════
+
+groups:
+  - name: smc_execution_safety
+    rules:
+
+      # ── Slippage ────────────────────────────────────────
+      - alert: HighSlippageWarning
+        expr: histogram_quantile(0.95, rate(p6_slippage_bps_bucket[5m])) > 40
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slippage p95 > 40 bps sur 5 min"
+          description: "Le slippage p95 est à {{ $value }} bps. Vérifier conditions marché ou exchange."
+
+      - alert: HighSlippageCritical
+        expr: histogram_quantile(0.99, rate(p6_slippage_bps_bucket[5m])) > 80
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Slippage p99 > 80 bps — critique"
+          description: "Le slippage p99 est à {{ $value }} bps. Possible problème de liquidité ou exchange."
+
+      # ── Rejection explosion ─────────────────────────────
+      - alert: RejectionExplosion
+        expr: |
+          (rate(p6_rejection_hard_total[5m]) + rate(p6_rejection_soft_total[5m]))
+          / (rate(p6_signal_evaluated_total[5m]) > 0)
+          > 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux de rejet > 90% sur 10 min"
+          description: "{{ $value | humanizePercentage }} des signaux sont rejetés. Possible bug, mauvais paramètre, ou marché cassé."
+
+      # ── Reconciler orphan ───────────────────────────────
+      - alert: ReconcilerOrphanDetected
+        expr: increase(p6_reconciler_orphans_total[5m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Position orpheline détectée par le reconciler"
+          description: "{{ $value }} orphan(s) détecté(s) dans les 5 dernières minutes. Vérifier immédiatement."
+
+      - alert: ReconcilerGhostDetected
+        expr: increase(p6_reconciler_ghosts_total[1h]) > 1
+        labels:
+          severity: warning
+        annotations:
+          summary: "Ghost position nettoyée"
+          description: "{{ $value }} ghost(s) nettoyé(s) en 1h. Possible problème de synchronisation."
+
+      # ── Emergency close ─────────────────────────────────
+      - alert: EmergencyCloseFailure
+        expr: increase(p6_emergency_close_total{outcome="failure"}[5m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Emergency close ÉCHOUÉ"
+          description: "Un emergency close a échoué. Position potentiellement orpheline — intervention manuelle requise."
+
+      # ── Fill delay ──────────────────────────────────────
+      - alert: HighFillDelay
+        expr: histogram_quantile(0.95, rate(p6_fill_delay_ms_bucket[5m])) > 2000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Fill delay p95 > 2s"
+          description: "Le délai de fill p95 est à {{ $value }}ms. Possible problème exchange ou réseau."
+
+      - alert: ExtremeFillDelay
+        expr: histogram_quantile(0.95, rate(p6_fill_delay_ms_bucket[5m])) > 5000
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Fill delay p95 > 5s — critique"
+          description: "Le délai de fill p95 est à {{ $value }}ms. Exchange potentiellement dégradé."
+
+      # ── Shadow / protection cost ────────────────────────
+      - alert: HighFilterBlockRate
+        expr: rate(p6_blocked_trades_total[1h]) > 20
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Filtres shadow bloquent > 20 trades/h"
+          description: "Les protections bloquent beaucoup de trades. Vérifier si sur-filtrage."

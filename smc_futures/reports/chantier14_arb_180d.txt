@@ -1,0 +1,27 @@
+CHANTIER 14 — STRUCTURAL ARBITRAGE ENGINE — 180d
+Capital: $10,000 | TF: 4h
+Strategies tested: 21
+
+[Axe 1] Funding_BTC_base          BTCUSDT  N=144, WR= 39.6%, PF= 1.00, PnL=$   -27.28, Carry=$  402.93, Fees=$3720.79, DD= 27.9% -> NO EDGE
+[Axe 1] Funding_BTC_alt_seed      BTCUSDT  N=142, WR= 36.6%, PF= 0.89, PnL=$ -1550.45, Carry=$  322.92, Fees=$3124.74, DD= 41.2% -> NO EDGE
+[Axe 1] Funding_ETH_base          ETHUSDT  N=166, WR= 36.1%, PF= 0.95, PnL=$ -1047.87, Carry=$  287.86, Fees=$3746.24, DD= 29.7% -> NO EDGE
+[Axe 1] Funding_ETH_alt_seed      ETHUSDT  N=180, WR= 33.3%, PF= 0.87, PnL=$ -2781.67, Carry=$  262.80, Fees=$3756.66, DD= 50.6% -> NO EDGE
+[Axe 1] Funding_SOL_base          SOLUSDT  N=182, WR= 37.9%, PF= 0.93, PnL=$ -2228.76, Carry=$  413.73, Fees=$4265.54, DD= 39.7% -> NO EDGE
+[Axe 1] Funding_SOL_alt_seed      SOLUSDT  N=189, WR= 33.3%, PF= 0.72, PnL=$ -5323.70, Carry=$  217.97, Fees=$2793.67, DD= 73.9% -> NO EDGE
+[Axe 2] Basis_BTC_base            BTCUSDT  N= 93, WR= 45.2%, PF= 0.87, PnL=$  -741.88, Carry=$  265.18, Fees=$1207.69, DD= 15.0% -> NO EDGE
+[Axe 2] Basis_BTC_alt_seed        BTCUSDT  N=117, WR= 30.8%, PF= 0.61, PnL=$ -2514.37, Carry=$  193.08, Fees=$1211.97, DD= 34.3% -> NO EDGE
+[Axe 2] Basis_ETH_base            ETHUSDT  N=138, WR= 45.7%, PF= 1.08, PnL=$   752.80, Carry=$  352.22, Fees=$1950.38, DD= 18.4% -> NO EDGE
+[Axe 2] Basis_ETH_alt_seed        ETHUSDT  N=140, WR= 31.4%, PF= 0.61, PnL=$ -3816.70, Carry=$  157.71, Fees=$1355.25, DD= 49.2% -> NO EDGE
+[Axe 2] Basis_SOL_base            SOLUSDT  N=156, WR= 46.2%, PF= 1.01, PnL=$   236.20, Carry=$  255.54, Fees=$2403.00, DD= 30.8% -> NO EDGE
+[Axe 2] Basis_SOL_alt_seed        SOLUSDT  N=164, WR= 32.9%, PF= 0.72, PnL=$ -3343.85, Carry=$  141.46, Fees=$1591.31, DD= 42.5% -> NO EDGE
+[Axe 3] CrossEx_BTC_base          BTCUSDT  N= 69, WR= 27.5%, PF= 0.44, PnL=$ -1193.47, Carry=$  192.17, Fees=$1005.14, DD= 14.7% -> NO EDGE
+[Axe 3] CrossEx_BTC_alt_seed      BTCUSDT  N= 69, WR= 39.1%, PF= 0.97, PnL=$   -47.76, Carry=$  215.55, Fees=$1047.03, DD=  6.6% -> NO EDGE
+[Axe 3] CrossEx_ETH_base          ETHUSDT  N= 71, WR= 32.4%, PF= 0.40, PnL=$ -1750.73, Carry=$  184.75, Fees=$1010.64, DD= 21.3% -> NO EDGE
+[Axe 3] CrossEx_ETH_alt_seed      ETHUSDT  N= 70, WR= 40.0%, PF= 0.99, PnL=$   -17.29, Carry=$  213.24, Fees=$1063.39, DD=  7.0% -> NO EDGE
+[Axe 3] CrossEx_SOL_base          SOLUSDT  N= 71, WR= 40.8%, PF= 0.65, PnL=$ -1118.99, Carry=$  199.26, Fees=$1044.83, DD= 17.6% -> NO EDGE
+[Axe 3] CrossEx_SOL_alt_seed      SOLUSDT  N= 70, WR= 41.4%, PF= 1.02, PnL=$    50.73, Carry=$  211.52, Fees=$1065.24, DD=  9.0% -> NO EDGE
+[Axe 4] Pairs_z2.0                BTC/ETH  N= 30, WR= 36.7%, PF= 0.72, PnL=$  -453.68, Carry=$    0.00, Fees=$ 365.17, DD=  8.0% -> NO EDGE
+[Axe 4] Pairs_z1.5                BTC/ETH  N= 34, WR= 41.2%, PF= 0.59, PnL=$  -688.38, Carry=$    0.00, Fees=$ 416.20, DD=  8.2% -> NO EDGE
+[Axe 4] Pairs_z2.5                BTC/ETH  N= 19, WR= 42.1%, PF= 1.00, PnL=$     0.98, Carry=$    0.00, Fees=$ 245.93, DD=  3.9% -> NO EDGE
+
+Elapsed: 14.4s

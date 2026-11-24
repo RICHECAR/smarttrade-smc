@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  smc-bot:
+    build: .
+    image: smc-futures-bot:latest
+    container_name: smc_bot_prod
+    restart: unless-stopped
+    # ---------------------------------------------------------------------------------
+    # OPSEC REQUIREMENT (Phase 0.75):
+    # No env_file is used. All secrets are explicitly passed from the host environment.
+    # The host should inject these via a Secret Manager (AWS/Vault) before starting Docker.
+    # ---------------------------------------------------------------------------------
+    environment:
+      # --- System Settings ---
+      - TRADING_MODE=${TRADING_MODE:-live}
+      - AUTO_EXECUTE=${AUTO_EXECUTE:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      
+      # --- EXECUTION KEYS (Injected from host memory) ---
+      - EXEC_BITGET_API_KEY=${EXEC_BITGET_API_KEY}
+      - EXEC_BITGET_SECRET_KEY=${EXEC_BITGET_SECRET_KEY}
+      - EXEC_BITGET_PASSPHRASE=${EXEC_BITGET_PASSPHRASE}
+      - EXEC_KRAKEN_API_KEY=${EXEC_KRAKEN_API_KEY}
+      - EXEC_KRAKEN_API_SECRET=${EXEC_KRAKEN_API_SECRET}
+
+    volumes:
+      # Optional: mount a persistence volume for SQLite DB if needed
+      - ./data:/app/data
+    
+    # Run container with minimum required privileges
+    security_opt:
+      - no-new-privileges:true
+    
+    # Custom healthcheck if applicable
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import sys; sys.exit(0)'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

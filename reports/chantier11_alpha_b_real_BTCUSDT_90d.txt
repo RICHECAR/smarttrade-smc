@@ -1,0 +1,193 @@
+
+======================================================================
+  CHANTIER 11 — ALPHA B VALIDATION SUR DONNEES REELLES
+  Symbol: BTCUSDT  TF: 5m  Jours: 90
+  Regle: Ne jamais ajuster les parametres pour forcer un resultat
+======================================================================
+
+[1/6] FETCHING REAL DATA FROM BITGET...
+
+[2/6] DATA VALIDATION (8928 candles from bitget_api)...
+── Data Validation ──
+  Candles:        8928
+  Date Range:     2026-02-23 22:10 → 2026-03-26 22:05 UTC
+  Coverage:       100.0%
+  Gaps:           0
+  OHLC Issues:    0
+  Anomalies:      0
+  Zero Vol Bars:  0
+  TS Issues:      0
+  VALID:          YES
+
+[3/6] RUNNING ALPHA B (Momentum Breakout) on 8928 REAL candles...
+══════════════════════════════════════════════════════════════════════
+  REALISTIC BACKTEST REPORT — BTCUSDT
+══════════════════════════════════════════════════════════════════════
+
+════════════════════════════════════════════════════════════
+  ✗ EDGE INVALIDATED  (Confidence: HIGH)
+════════════════════════════════════════════════════════════
+  Score: 15/100
+    Profitability : 5/25
+    Risk          : 0/25
+    Robustness    : 0/25
+    Consistency   : 10/25
+
+  ── Métriques clés ──
+    Trades        : 78
+    Win Rate      : 16.7%
+    Profit Factor : 0.07
+    Expectancy    : $-86.12/trade
+    Max Drawdown  : 67.2%
+    Sharpe Ratio  : -42.66
+    Total PnL     : $-6717.38
+    Total Fees    : $387.88
+    Total Funding : $9.67
+    Slippage Cost : $4345.64
+
+  ── REJECTIONS ──
+    ✗ NEGATIVE EXPECTANCY: $-86.12 per trade
+    ✗ LOW PROFIT FACTOR: 0.07 < 1.2
+    ✗ EXCESSIVE DRAWDOWN: 67.2% > 25.0%
+    ✗ WIN RATE TOO LOW: 16.7% < 30.0%
+    ✗ MC ROBUSTNESS FAILED: 0.00 < 0.6
+    ✗ MC 5th PERCENTILE LOSS: $-6717
+    ✗ WF INCONSISTENT: 0% OOS folds profitable < 50%
+    ✗ WF OOS UNPROFITABLE: PF = 0.00
+
+  ── Warnings ──
+    ⚠ LOW SHARPE: -42.66
+    ⚠ Long losing streak: 16
+    ⚠ Parameter sensitive: unprofitable in 100% of variations
+    ⚠ 95th DD = 67.8% (risk of >30% drawdown)
+    ⚠ 5th pctile PnL = $-6717 (can be negative)
+    ⚠ Unprofitable in 100% of param variations
+    ⚠ 5th pctile PF = 0.07 (below breakeven)
+    ⚠ Unprofitable in 100% of skip-N trials (outlier dependent)
+════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────
+  WALK-FORWARD VALIDATION
+──────────────────────────────────────────────────────────────────────
+  Total folds       : 9
+  Valid folds       : 0
+  Overfit folds     : 0
+  OOS Trades        : 0
+  OOS Win Rate      : 0.0%
+  OOS Profit Factor : 0.00
+  OOS Consistency   : 0%
+  Overfit Score     : 0.00
+  IS Win Rate       : 0.0%
+  IS Profit Factor  : 0.00
+  Robust?           : NO
+
+──────────────────────────────────────────────────────────────────────
+  MONTE CARLO ANALYSIS
+──────────────────────────────────────────────────────────────────────
+  Permutation (order sensitivity):
+    95th pctile DD  : 67.8%
+    5th pctile PnL  : $-6717
+    Median PF       : 0.07
+  Parameter sensitivity:
+    5th pctile PnL  : $-8618
+    Unprofitable    : 100%
+  Skip-N stability:
+    5th pctile PnL  : $-6514
+    Unprofitable    : 100%
+  Robustness Score  : 0.00
+  Robust?           : NO
+
+  Pipeline duration: 88.1s
+══════════════════════════════════════════════════════════════════════
+
+[4/6] DETAILED ALPHA B ANALYSIS...
+
+======================================================================
+  ALPHA B — DETAILED ANALYSIS (MOMENTUM BREAKOUT)
+======================================================================
+
+  DIRECTION BREAKDOWN:
+    Long Trades:  30  WR: 40.0%  PF: 0.90
+    Short Trades: 48  WR: 2.1%  PF: 0.00
+
+  PnL DISTRIBUTION:
+    Best Trade:   $82.78
+    Worst Trade:  $-612.70
+    5th pctile:   $-270.66
+    25th pctile:  $-135.75
+    Median:       $-66.25
+    75th pctile:  $-10.56
+    95th pctile:  $54.93
+    Skewness:     -1.95  (-skew=bad)
+
+  VOLATILITY REGIME:
+    normal    :  77 trades  WR:  16.9%  Net: $-6623.43  Avg: $-86.02
+    high      :   1 trades  WR:   0.0%  Net: $  -93.96  Avg: $-93.96
+
+  SESSION ANALYSIS (UTC):
+    Asia (00-08)        :  21 trades  WR:  19.0%  Net: $-1987.46
+    London (08-14)      :  22 trades  WR:  18.2%  Net: $-1425.14
+    NY (14-21)          :  23 trades  WR:  13.0%  Net: $-2417.09
+    Off-hours (21-00)   :  12 trades  WR:  16.7%  Net: $ -887.69
+
+  HOLD TIME:
+    Average:  31.9 bars  (160 min)
+    Median:   17 bars  (85 min)
+    Winners:  36.7 bars
+    Losers:   31.0 bars
+
+  EDGE RATIO (MFE/MAE):
+    Avg MAE:     13.1 bps
+    Avg MFE:     3.3 bps
+    Edge Ratio:  0.25  (<1 = no edge)
+
+  COST BREAKDOWN:
+    Fees:              $387.88
+    Funding:           $9.67
+    Slippage Est.:     $4345.64
+    Avg Entry Slip:    121.0 bps
+    Cost per Trade:    $60.81
+
+[5/6] SYNTHETIC vs REAL COMPARISON...
+
+======================================================================
+  SYNTHETIC vs REAL DATA COMPARISON
+======================================================================
+  Metric                       Synthetic         REAL        Delta
+  ───────────────────────── ──────────── ──────────── ────────────
+  Trades                              13           78          +65
+  Win Rate (%)                      69.2         16.7        -52.6
+  Profit Factor                     1.08         0.07        -1.01
+  Expectancy ($)                    4.73       -86.12       -90.85
+  Net PnL ($)                      61.50     -6717.38     -6778.89
+  Max DD (%)                         7.7         67.2        +59.4
+  Sharpe                            1.71       -42.66       -44.37
+  Avg Hold (bars)                     34           32           -2
+
+  INTERPRETATION:
+  Real data generates MORE signals — synthetic was too conservative
+  DEGRADATION: Edge disappears on real data — SYNTHETIC WAS MISLEADING
+
+[6/6] COMPUTING FINAL VERDICT...
+
+======================================================================
+  VERDICT FINAL — CHANTIER 11
+  ALPHA B (Momentum Breakout) sur DONNEES REELLES
+======================================================================
+
+  [FAIL] Expectancy > 0       = $-86.12
+  [FAIL] PF >= 1.2            = 0.07
+  [PASS] Trades >= 30         = 78
+  [FAIL] Max DD <= 25%        = 67.2%
+  [FAIL] WF Robust            = OOS PF=0.00
+  [FAIL] MC Robust            = score=0.00
+  [FAIL] Edge Ratio > 1       = 0.25
+
+  Score: 1/7 criteria passed
+
+  ╔══════════════════════════════════════════════════╗
+  ║                     EDGE DEAD                      ║
+  ╚══════════════════════════════════════════════════╝
+
+  Alpha B n'a PAS d'edge sur donnees reelles.
+  L'edge synthetique etait un artefact — RETOUR A LA RECHERCHE.
